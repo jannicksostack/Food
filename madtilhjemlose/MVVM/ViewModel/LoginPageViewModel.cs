@@ -6,6 +6,7 @@ using System.Windows.Input;
 
 namespace madtilhjemlose.MVVM.ViewModel
 {
+    // Test comment
     internal partial class LoginPageViewModel : ObservableValidator
     {
         private INavigation navigation;
