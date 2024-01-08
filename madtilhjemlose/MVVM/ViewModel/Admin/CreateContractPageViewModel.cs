@@ -1,0 +1,14 @@
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace madtilhjemlose.MVVM.ViewModel.Admin
+{
+    internal class CreateContractPageViewModel : ObservableValidator
+    {
+        private INavigation navigation;
+
+        public CreateContractPageViewModel(INavigation navigation)
+        {
+            this.navigation = navigation;
+        }
+    }
+}
