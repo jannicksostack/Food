@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using madtilhjemlose.MVVM.DataAccess;
 using madtilhjemlose.MVVM.Model.User;
@@ -21,41 +21,30 @@ namespace madtilhjemlose.MVVM.ViewModel
         [ObservableProperty]
         private string password = "";
 
-        private Func<Task> OnFailedLogin { get; set; }
 
-        public LoginPageViewModel(INavigation navigation, Func<Task> onFailedLogin)
+        public LoginPageViewModel(INavigation navigation)
         {
-            OnFailedLogin = onFailedLogin;
             this.navigation = navigation;
-            LoginCommand = new AsyncRelayCommand(Login);
+            LoginCommand = new RelayCommand(Login);
         }
 
-        private async Task Login()
+        private void Login()
         {
             BaseUser? maybeUser = userRepo.TryGetUser(Username, Password);
             if (maybeUser is not BaseUser user)
             {
-                Clear();
-                await OnFailedLogin();
-                return;
+                FailedToLogin();
             }
+            Page p;
 
-            Page p = user switch
-            {
-                AdminUser adminUser => new AdminPage(adminUser),
-                DefaultUser defaultUser => new CustomerPage(defaultUser),
-                _ => throw new InvalidDataException("TODO")
-            };
-
-            Clear();
-            await navigation.PushAsync(p);
-        }
-
-        private void Clear()
-        {
+            navigation.PushAsync(p);
             Username = "";
             Password = "";
         }
 
+        private void FailedToLogin()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
