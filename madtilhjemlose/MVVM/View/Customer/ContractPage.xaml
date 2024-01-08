@@ -3,6 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="madtilhjemlose.MVVM.View.Customer.ContractPage" >
     <VerticalStackLayout>
-        <Label Text="Contract" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+        <Label Text="Contract Hej" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
     </VerticalStackLayout>
 </ContentPage>
