@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using madtilhjemlose.MVVM.View.Customer;
 using System.Windows.Input;
 
-namespace madtilhjemlose.MVVM.ViewModel.Customer
+namespace madtilhjemlose.MVVM.ViewModel.User.RestrictedUser
 {
     internal class CustomerPageViewModel : ObservableValidator
     {

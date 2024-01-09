@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace madtilhjemlose.MVVM.ViewModel.Admin
+namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 {
     internal class OrdersPageViewModel : ObservableValidator
     {

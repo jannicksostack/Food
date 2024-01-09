@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using madtilhjemlose.MVVM.View.Admin;
 using System.Windows.Input;
 
-namespace madtilhjemlose.MVVM.ViewModel.Admin
+namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 {
     internal class ProductsPageViewModel : ObservableValidator
     {
