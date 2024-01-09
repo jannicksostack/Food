@@ -2,9 +2,36 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="madtilhjemlose.MVVM.View.User.Admin.ContractsPage" >
-    <VerticalStackLayout>
+    <!--<VerticalStackLayout>
         <Label Text="Contracts" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
         <Button Text="Search" Command="{Binding SearchCommand}" />
         <Button Text="Create New Contract" Command="{Binding CreateContractCommand}" />
     </VerticalStackLayout>
+    -->
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/> <!--5-->
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/> <!--10-->
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" Text="Contracts" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+        <Button Grid.Column="3" Grid.Row="10" Text="Search" Command="{Binding SearchCommand}" />
+        <Picker Grid.Row="8" Grid.Column="0" x:Name="ContractPicker" Title="Vælg en kontrakt" ItemsSource="{Binding ContractList}" SelectedItem="{Binding SelectedContract}" />
+    </Grid>
 </ContentPage>
