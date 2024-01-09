@@ -1,48 +1,25 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using madtilhjemlose.MVVM.DataAccess;
-using madtilhjemlose.MVVM.Model.User;
-using madtilhjemlose.MVVM.View.Admin;
-using madtilhjemlose.MVVM.View.Customer;
 using System.Windows.Input;
 
-namespace madtilhjemlose.MVVM.ViewModel
+namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 {
-    // Test comment
-    internal partial class LoginPageViewModel : ObservableValidator
+    internal partial class CreateProductPageViewModel : ObservableValidator
     {
         private INavigation navigation;
-        public ICommand LoginCommand { get; set; }
-
-        private UserRepository userRepo = new();
 
         [ObservableProperty]
-        private string username = "";
-        [ObservableProperty]
-        private string password = "";
+        private string? imagePath;
 
+        public ICommand ChooseFileCommand { get; set; }
 
-        public LoginPageViewModel(INavigation navigation)
+        public CreateProductPageViewModel(INavigation navigation)
         {
             this.navigation = navigation;
-            LoginCommand = new RelayCommand(Login);
+            ChooseFileCommand = new RelayCommand(ChooseFile);
         }
 
-        private void Login()
-        {
-            BaseUser? maybeUser = userRepo.TryGetUser(Username, Password);
-            if (maybeUser is not BaseUser user)
-            {
-                FailedToLogin();
-            }
-            Page p;
-
-            navigation.PushAsync(p);
-            Username = "";
-            Password = "";
-        }
-
-        private void FailedToLogin()
+        private void ChooseFile()
         {
             throw new NotImplementedException();
         }

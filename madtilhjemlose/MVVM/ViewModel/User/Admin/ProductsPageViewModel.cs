@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using madtilhjemlose.MVVM.Model;
+using madtilhjemlose.MVVM.Model.User;
 using madtilhjemlose.MVVM.View.User.Admin;
 using System.Windows.Input;
 
 namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 {
-    internal class ProductsPageViewModel : ObservableValidator
+    internal partial class ProductsPageViewModel : ObservableValidator
     {
         private INavigation navigation;
 
@@ -14,6 +16,9 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         public ICommand UpdateCommand { get; set; }
         public ICommand CreateCommand { get; set; }
 
+        [ObservableProperty]
+        private ImageSource product;
+
         public ProductsPageViewModel(INavigation navigation)
         {
             this.navigation = navigation;
@@ -21,6 +26,9 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
             DeleteCommand = new RelayCommand(Delete);
             UpdateCommand = new RelayCommand(Update);
             CreateCommand = new RelayCommand(Create);
+
+            
+            
         }
 
         private void Create()

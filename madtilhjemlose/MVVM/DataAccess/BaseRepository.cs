@@ -17,4 +17,10 @@ public abstract class BaseRepository : IDisposable
     {
 		connection.Dispose();
     }
+
+	protected void ShowErrorMessage(string message)
+	{
+		string title = "Repository Error";
+		App.Current.MainPage.Navigation.NavigationStack.Last().DisplayAlert(title, message, "Ok");
+	}
 }
