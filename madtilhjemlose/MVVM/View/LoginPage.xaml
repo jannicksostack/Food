@@ -6,7 +6,7 @@
                  Padding="30">
         <Image
                 Source="jjmstore.png"
-                HeightRequest="185"
+                HeightRequest="190"
                 Aspect="AspectFit"
                 SemanticProperties.Description="Skraldetur I containeren indkøb" />
         <Label

@@ -169,6 +169,9 @@
 	  <MauiXaml Update="MVVM\View\ProductsWindow.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="MVVM\View\User\Admin\CompanyPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="MVVM\View\User\Default\ContractPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

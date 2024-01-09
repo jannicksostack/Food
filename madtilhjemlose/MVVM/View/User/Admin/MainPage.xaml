@@ -2,9 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="madtilhjemlose.MVVM.View.User.Admin.MainPage" >
-    <VerticalStackLayout>
-        <Label Text="Admin" HorizontalTextAlignment="Center"/>
+    <VerticalStackLayout Padding="10" Margin="10" WidthRequest="400" Spacing="10">
+        <Image Source="jjmstore.png" HeightRequest="185" Aspect="AspectFit" SemanticProperties.Description="Logo"/>
+
+        <Label Text="Admin" HorizontalTextAlignment="Center" BackgroundColor="Coral"/>
         <Button Text="Logout" Command="{Binding LogoutCommand}" />
+        <Button Text="Companies" Command="{Binding OpenCompanyCommand}" />
         <Button Text="Contracts" Command="{Binding OpenContractsCommand}" />
         <Button Text="Orders" Command="{Binding OpenOrdersCommand}" />
         <Button Text="Products" Command="{Binding OpenProductsCommand}" />

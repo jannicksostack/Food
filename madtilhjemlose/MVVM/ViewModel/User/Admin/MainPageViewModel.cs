@@ -8,17 +8,20 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
     internal class MainPageViewModel : ObservableValidator
     {
         private INavigation navigation;
+     
         public ICommand LogoutCommand { get; set; }
         public ICommand OpenContractsCommand { get; set; }
         public ICommand OpenOrdersCommand { get; set; }
         public ICommand OpenProductsCommand { get; set; }
         public ICommand OpenStatisticsCommand { get; set; }
+        public ICommand OpenCompanyCommand { get; set; }
 
 
         public MainPageViewModel(INavigation navigation)
         {
             this.navigation = navigation;
             LogoutCommand = new RelayCommand(logout);
+            OpenCompanyCommand = new RelayCommand(OpenCompany);
             OpenContractsCommand = new RelayCommand(OpenContracts);
             OpenOrdersCommand = new RelayCommand(OpenOrders);
             OpenProductsCommand = new RelayCommand(OpenProducts);
@@ -43,6 +46,11 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         private void OpenContracts()
         {
             navigation.PushAsync(new ContractsPage());
+        }
+
+        private void OpenCompany()
+        {
+            navigation.PushAsync(new CompanyPage());
         }
 
         private void logout()
