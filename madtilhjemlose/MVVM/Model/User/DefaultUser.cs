@@ -3,10 +3,9 @@ using Microsoft.Data.SqlClient;
 
 namespace madtilhjemlose.MVVM.Model.User
 {
-    public class DefaultUser : BaseUser
+    public class DefaultUser : RestrictedUser
     {
         private ContractRepository contractRepo = new();
-        private ProductRepository projectRepo = new();
         private OrderRepository orderRepository = new();
         public override UserType UserType => UserType.Default;
         public DefaultUser(int id, int companyId, string userName, string? email, string? phoneNumber, string? address) : base(id, companyId, userName, email, phoneNumber, address) { }

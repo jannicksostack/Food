@@ -1,6 +1,6 @@
-using madtilhjemlose.MVVM.ViewModel.User.Restricted;
+using madtilhjemlose.MVVM.ViewModel.User.Default;
 
-namespace madtilhjemlose.MVVM.View.User.Restricted;
+namespace madtilhjemlose.MVVM.View.User.Default;
 
 public partial class NewOrderPage : ContentPage
 {

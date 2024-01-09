@@ -47,7 +47,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 
         private void logout()
         {
-            navigation.PopAsync();
+            navigation.PopToRootAsync();
         }
     }
 }

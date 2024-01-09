@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using madtilhjemlose.MVVM.View.User.Restricted;
+using madtilhjemlose.MVVM.View.User.Default;
 using System.Windows.Input;
 
-namespace madtilhjemlose.MVVM.ViewModel.User.Restricted
+namespace madtilhjemlose.MVVM.ViewModel.User.Default
 {
     internal class MainPageViewModel : ObservableValidator
     {
@@ -11,6 +11,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Restricted
         public ICommand LogoutCommand { get; set; }
         public ICommand ViewContractCommand { get; set; }
         public ICommand ViewLastOrderCommand { get; set; }
+        public ICommand NewOrderCommand { get; set; }
 
 
         public MainPageViewModel(INavigation navigation)
@@ -19,6 +20,12 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Restricted
             LogoutCommand = new RelayCommand(Logout);
             ViewContractCommand = new RelayCommand(ViewContract);
             ViewLastOrderCommand = new RelayCommand(ViewLastOrder);
+            NewOrderCommand = new RelayCommand(NewOrder);
+        }
+
+        private void NewOrder()
+        {
+            navigation.PushAsync(new NewOrderPage());
         }
 
         private void ViewLastOrder()

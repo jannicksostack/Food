@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace madtilhjemlose.MVVM.ViewModel.User.Restricted
+namespace madtilhjemlose.MVVM.ViewModel.User.Default
 {
     internal class NewOrderPageViewModel : ObservableValidator
     {
@@ -10,5 +10,6 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Restricted
         {
             this.navigation = navigation;
         }
+
     }
 }

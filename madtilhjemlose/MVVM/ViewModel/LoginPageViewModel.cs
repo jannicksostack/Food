@@ -2,8 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using madtilhjemlose.MVVM.DataAccess;
 using madtilhjemlose.MVVM.Model.User;
-using madtilhjemlose.MVVM.View.User.Restricted;
-using madtilhjemlose.MVVM.View.User.Admin;
 using System.Windows.Input;
 
 namespace madtilhjemlose.MVVM.ViewModel
@@ -43,8 +41,9 @@ namespace madtilhjemlose.MVVM.ViewModel
             Page p = user switch
             {
                 AdminUser adminUser => new View.User.Admin.MainPage(adminUser),
-                DefaultUser defaultUser => new View.User.Restricted.MainPage(defaultUser),
-                _ => throw new InvalidDataException("TODO")
+                DefaultUser defaultUser => new View.User.Default.MainPage(defaultUser),
+                RestrictedUser restrictedUser => new View.User.Restricted.MainPage(restrictedUser),
+                _ => throw new InvalidDataException("Der findes kun 3 bruger typer")
             };
 
             Clear();
