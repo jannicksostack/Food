@@ -16,7 +16,7 @@ public class UserRepository : BaseRepository
 		{
 			connection.Open();
 			using SqlCommand cmd = connection.CreateCommand();
-			cmd.CommandText = "select UserID, UserEmail, UserType.Value as UserType from Users left join UserType on UserType.ID = Users.UserType where UserName = @username and UserPassword = @password";
+			cmd.CommandText = "select FirmaID, BrugerID, BrugerEmail, BrugerNavn, BrugerType.BrugerTypeNavn as BrugerType from Bruger left join BrugerType on BrugerType.BrugerTypeID = Bruger.BrugerTypeID where BrugerNavn = @username and BrugerPassword = @password";
 			cmd.Parameters.AddWithValue("@username", userName);
 			cmd.Parameters.AddWithValue("@password", password);
 
@@ -27,7 +27,7 @@ public class UserRepository : BaseRepository
 			}
 
 			reader.Read();
-			UserType type = reader["UserType"].ToString()!.ToUserType();
+			UserType type = reader["BrugerType"].ToString()!.ToUserType();
 			return type switch
 			{
 				UserType.Admin => AdminUser.FromReader(reader),

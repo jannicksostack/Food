@@ -18,8 +18,8 @@ namespace madtilhjemlose.MVVM.Model.User
 
         public AdminUser(int id, int companyId) : base(id, companyId) { }
         public static AdminUser FromReader(SqlDataReader reader) {
-            int id = (int) reader["id"];
-            int companyId = (int) reader["companyId"];
+            int id = (int) reader["BrugerID"];
+            int companyId = (int) reader["FirmaID"];
             return new AdminUser(id, companyId);
         }
     }

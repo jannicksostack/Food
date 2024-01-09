@@ -13,8 +13,8 @@ namespace madtilhjemlose.MVVM.Model.User
         protected RestrictedUser(int id, int companyId, string userName, string? email, string? phoneNumber, string? address) : base(id, companyId, userName, email, phoneNumber, address) { }
         public RestrictedUser(int id, int companyId) : base(id, companyId) { }
         public static RestrictedUser FromReader(SqlDataReader reader) {
-            int id = (int) reader["id"];
-            int companyId = (int) reader["companyId"];
+            int id = (int) reader["BrugerID"];
+            int companyId = (int) reader["FirmaID"];
             return new RestrictedUser(id, companyId);
         }
     }

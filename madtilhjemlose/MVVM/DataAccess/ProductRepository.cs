@@ -4,9 +4,7 @@ namespace madtilhjemlose.MVVM.DataAccess;
 
 public class ProductRepository : BaseRepository
 {
-    public ProductRepository()
-    {
-    }
+    public ProductRepository() { }
 
     public Product CreateProduct(string type, string name, string imageUrl)
     {

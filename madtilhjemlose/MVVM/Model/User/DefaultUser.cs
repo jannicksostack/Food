@@ -11,10 +11,10 @@ namespace madtilhjemlose.MVVM.Model.User
         public DefaultUser(int id, int companyId, string userName, string? email, string? phoneNumber, string? address) : base(id, companyId, userName, email, phoneNumber, address) { }
         public static DefaultUser FromReader(SqlDataReader reader)
         {
-            int id = (int) reader["UserID"];
-            int companyId = 1;// (int) reader["companyId"];
-            string userName = "ASD"; // (string) reader["UserName"];
-            string? email = reader["UserEmail"]?.ToString();
+            int id = (int) reader["BrugerID"];
+            int companyId = (int) reader["FirmaID"];
+            string userName = (string) reader["BrugerNavn"];
+            string? email = reader["BrugerEmail"]?.ToString();
             string? phoneNumber = "222"; // (string?) reader["UserPhone"];
             string? address = "Home";// (string?) reader["UserAddress"];
 
