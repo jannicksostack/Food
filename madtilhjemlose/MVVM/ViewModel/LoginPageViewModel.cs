@@ -2,8 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using madtilhjemlose.MVVM.DataAccess;
 using madtilhjemlose.MVVM.Model.User;
-using madtilhjemlose.MVVM.View.Admin;
-using madtilhjemlose.MVVM.View.Customer;
+using madtilhjemlose.MVVM.View.User.Restricted;
+using madtilhjemlose.MVVM.View.User.Admin;
 using System.Windows.Input;
 
 namespace madtilhjemlose.MVVM.ViewModel
@@ -42,8 +42,8 @@ namespace madtilhjemlose.MVVM.ViewModel
 
             Page p = user switch
             {
-                AdminUser adminUser => new AdminPage(adminUser),
-                DefaultUser defaultUser => new CustomerPage(defaultUser),
+                AdminUser adminUser => new View.User.Admin.MainPage(adminUser),
+                DefaultUser defaultUser => new View.User.Restricted.MainPage(defaultUser),
                 _ => throw new InvalidDataException("TODO")
             };
 

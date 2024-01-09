@@ -1,6 +1,6 @@
-using madtilhjemlose.MVVM.ViewModel.Admin;
+using madtilhjemlose.MVVM.ViewModel.User.Admin;
 
-namespace madtilhjemlose.MVVM.View.Admin;
+namespace madtilhjemlose.MVVM.View.User.Admin;
 
 public partial class StatisticsPage: ContentPage
 {

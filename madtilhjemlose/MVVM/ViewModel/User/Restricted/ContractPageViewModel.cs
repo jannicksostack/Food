@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace madtilhjemlose.MVVM.ViewModel.User.RestrictedUser
+namespace madtilhjemlose.MVVM.ViewModel.User.Restricted
 {
     internal class ContractPageViewModel : ObservableValidator
     {

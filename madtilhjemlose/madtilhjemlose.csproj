@@ -109,6 +109,9 @@
 	  <Compile Update="MVVM\View\Admin\AdminPage.xaml.cs">
 	    <DependentUpon>AdminPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="MVVM\View\User\Admin\MainPage.xaml.cs">
+	    <DependentUpon>MainPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>

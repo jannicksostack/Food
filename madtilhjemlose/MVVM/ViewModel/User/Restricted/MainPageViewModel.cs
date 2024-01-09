@@ -1,11 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using madtilhjemlose.MVVM.View.Customer;
+using madtilhjemlose.MVVM.View.User.Restricted;
 using System.Windows.Input;
 
-namespace madtilhjemlose.MVVM.ViewModel.User.RestrictedUser
+namespace madtilhjemlose.MVVM.ViewModel.User.Restricted
 {
-    internal class CustomerPageViewModel : ObservableValidator
+    internal class MainPageViewModel : ObservableValidator
     {
         private INavigation navigation;
         public ICommand LogoutCommand { get; set; }
@@ -14,7 +14,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.RestrictedUser
         public ICommand NewOrderCommand { get; set; }
 
 
-        public CustomerPageViewModel(INavigation navigation)
+        public MainPageViewModel(INavigation navigation)
         {
             this.navigation = navigation;
             LogoutCommand = new RelayCommand(Logout);

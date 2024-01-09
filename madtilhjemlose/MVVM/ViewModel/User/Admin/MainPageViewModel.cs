@@ -1,11 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using madtilhjemlose.MVVM.View.Admin;
+using madtilhjemlose.MVVM.View.User.Admin;
 using System.Windows.Input;
 
 namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 {
-    internal class AdminPageViewModel : ObservableValidator
+    internal class MainPageViewModel : ObservableValidator
     {
         private INavigation navigation;
         public ICommand LogoutCommand { get; set; }
@@ -15,7 +15,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         public ICommand OpenStatisticsCommand { get; set; }
 
 
-        public AdminPageViewModel(INavigation navigation)
+        public MainPageViewModel(INavigation navigation)
         {
             this.navigation = navigation;
             LogoutCommand = new RelayCommand(logout);
