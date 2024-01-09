@@ -1,15 +1,17 @@
 namespace madtilhjemlose.MVVM.Model;
 
-public class Product : ContentPage
+public class Product
 {
-	public Product()
+	public int Id { get; set; }
+	public string Name { get; set; }
+	public string Type { get; set; }
+	public string ImagePath { get; set; }
+
+	public Product(int id, string type, string name, string imagePath)
 	{
-		Content = new VerticalStackLayout
-		{
-			Children = {
-				new Label { HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center, Text = "Welcome to .NET MAUI!"
-				}
-			}
-		};
+		Id = id;
+		Type = type;
+		Name = name;
+		ImagePath = imagePath;
 	}
 }

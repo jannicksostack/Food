@@ -1,0 +1,50 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using madtilhjemlose.MVVM.DataAccess;
+using madtilhjemlose.MVVM.Model.User;
+using madtilhjemlose.MVVM.View.Admin;
+using madtilhjemlose.MVVM.View.Customer;
+using System.Windows.Input;
+
+namespace madtilhjemlose.MVVM.ViewModel
+{
+    // Test comment
+    internal partial class LoginPageViewModel : ObservableValidator
+    {
+        private INavigation navigation;
+        public ICommand LoginCommand { get; set; }
+
+        private UserRepository userRepo = new();
+
+        [ObservableProperty]
+        private string username = "";
+        [ObservableProperty]
+        private string password = "";
+
+
+        public LoginPageViewModel(INavigation navigation)
+        {
+            this.navigation = navigation;
+            LoginCommand = new RelayCommand(Login);
+        }
+
+        private void Login()
+        {
+            BaseUser? maybeUser = userRepo.TryGetUser(Username, Password);
+            if (maybeUser is not BaseUser user)
+            {
+                FailedToLogin();
+            }
+            Page p;
+
+            navigation.PushAsync(p);
+            Username = "";
+            Password = "";
+        }
+
+        private void FailedToLogin()
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
