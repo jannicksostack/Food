@@ -2,10 +2,34 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="madtilhjemlose.MVVM.View.LoginPage">
-    <StackLayout>
+    <StackLayout WidthRequest="500" Margin="10"
+                 Padding="30">
+        <Image
+                Source="jjmstore.png"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="Skraldetur I containeren indkøb" />
+        <Label
+                Text="Welkome to the Online-Shop"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+        <Label
+                Text="Log venligst ind for at komme ind"
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Du skal være logget ind for at få adgang til din side " />
+        <Label 
+            Text=" "
+            Style="{StaticResource SubHeadline}"
+            SemanticProperties.HeadingLevel="Level2"
+            />
+
+        
         <Entry Placeholder="Username" Text="{Binding Username, Mode=TwoWay}"/>
         <Entry Placeholder="Password" Text="{Binding Password, Mode=TwoWay}" IsPassword="True" />
         <Button Text="Login" Command="{Binding LoginCommand}" />
+    
     </StackLayout>
 
 </ContentPage>
