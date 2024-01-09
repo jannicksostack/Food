@@ -2,11 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="madtilhjemlose.MVVM.View.LoginPage">
-    <StackLayout WidthRequest="500" Margin="10"
+    <StackLayout WidthRequest="400" Margin="10"
                  Padding="30">
         <Image
                 Source="jjmstore.png"
-                HeightRequest="185"
+                HeightRequest="190"
                 Aspect="AspectFit"
                 SemanticProperties.Description="Skraldetur I containeren indkøb" />
         <Label

@@ -14,12 +14,14 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         public ICommand OpenOrdersCommand { get; set; }
         public ICommand OpenProductsCommand { get; set; }
         public ICommand OpenStatisticsCommand { get; set; }
+        public ICommand OpenCompanyCommand { get; set; }
 
 
         public MainPageViewModel(AdminUser user)
         {
             User = user;
             LogoutCommand = new RelayCommand(logout);
+            OpenCompanyCommand = new RelayCommand(OpenCompany);
             OpenContractsCommand = new RelayCommand(OpenContracts);
             OpenOrdersCommand = new RelayCommand(OpenOrders);
             OpenProductsCommand = new RelayCommand(OpenProducts);
@@ -44,6 +46,11 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         private void OpenContracts()
         {
             App.Current.MainPage.Navigation.PushAsync(new ContractsPage());
+        }
+
+        private void OpenCompany()
+        {
+            App.Current.MainPage.Navigation.PushAsync(new CompanyPage());
         }
 
         private void logout()
