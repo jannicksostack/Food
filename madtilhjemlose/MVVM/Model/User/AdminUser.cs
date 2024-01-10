@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace madtilhjemlose.MVVM.Model.User
 {
@@ -32,14 +33,19 @@ namespace madtilhjemlose.MVVM.Model.User
             return new AdminUser(id, companyId);
         }
 
-        public bool CreateProduct(string type, string name, string imagePath)
+        public void CreateProduct(string type, string name, byte[]? imageData)
         {
-            return productRepo.CreateProduct(type, name, imagePath);
+            productRepo.CreateProduct(type, name, imageData);
         }
 
-        public List<Product> GetProducts()
+        public void UpdateProduct(Product product)
         {
-            return productRepo.GetProducts();
+            productRepo.UpdateProduct(product);
+        }
+
+        public ObservableCollection<Product> GetProducts()
+        {
+            return productRepo.Products;
         }
     }
 }
