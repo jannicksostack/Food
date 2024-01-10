@@ -1,15 +1,25 @@
+using madtilhjemlose.MVVM.Model;
 using Microsoft.Data.SqlClient;
+using System.Collections;
 using System.Data;
+using System.Data.Common;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace madtilhjemlose.MVVM.DataAccess;
 
-public class ContractRepository : BaseRepository
+public class ContractRepository : BaseRepository, IEnumerable<Contract>
 {
-	
+	private readonly List<Contract> list = [];
+
 	public ContractRepository()
 	{
 	}
-	public void Search(string companyName)
+    public IEnumerator<Contract> GetEnumerator() // jesper
+    {
+        return list.GetEnumerator();
+    }
+
+    public void Search(string companyName) // Jesper
 	{
 		// All har adgang til dette, Admin kan vælge firma fra en Picker og normal bruger har hardcodet deres firmaNavn tilsendt
 		try
@@ -31,12 +41,18 @@ public class ContractRepository : BaseRepository
 		}
 		catch (Exception ex)
 		{
-			// throw an DbExceptionError
+			// throw an error message
 			throw;
-		}
+        }
 		finally 
 		{
-			// close connection
-		}
+            // close connection
+            if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+        }
 	}
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        throw new NotImplementedException();
+    }
 }

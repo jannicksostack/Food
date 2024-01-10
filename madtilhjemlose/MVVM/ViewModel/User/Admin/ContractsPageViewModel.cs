@@ -9,7 +9,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
     internal class ContractsPageViewModel : ObservableValidator
     {
         private INavigation navigation;
-        protected static ContractRepository repository;
+        protected static ContractRepository repository = [];
 
         public ICommand SearchCommand { get; set; }
         public ICommand CreateContractCommand { get; set; }
@@ -35,7 +35,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         public List<string> ContractList { get; set; }
         private List<string> GetAllContracts()
         {
-            // repository.Search(string.Empty);
+            repository.Search(string.Empty);
             var contracts = new List<string>();
 
             // get all contract names from db and fill it in this.contracts 

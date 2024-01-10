@@ -18,12 +18,14 @@ public abstract class BaseRepository : IDisposable
     {
 		connection.Dispose();
     }
+
 	protected void ShowErrorMessage(string message)
 	{
 		string title = "Repository Error";
 		App.Current.MainPage.Navigation.NavigationStack.Last().DisplayAlert(title, message, "Ok");
 	}
-    protected static SqlParameter CreateParam(string name, object value, SqlDbType type)
+
+    protected static SqlParameter CreateParam(string name, object value, SqlDbType type) // Jesper
     {
         SqlParameter param = new(name, type)
         {
