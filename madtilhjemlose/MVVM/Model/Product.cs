@@ -1,4 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace madtilhjemlose.MVVM.Model;
 
@@ -44,6 +46,14 @@ public partial class Product : ObservableObject
 		ImageData = imageData;
 
 	}
+
+	public Product(SqlDataReader reader)
+	{
+        Id = (int) reader["ProduktID"];
+        Name = (string) reader["ProduktNavn"];
+        Type = (string) reader["ProduktType"];
+        ImageData = reader.IsDBNull("ProduktBillede") ? null : (byte[]) reader["ProduktBillede"];
+    }
     public static byte[] GetImageData(string imagePath)
     {
         return File.ReadAllBytes(imagePath);

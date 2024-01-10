@@ -26,16 +26,23 @@ namespace madtilhjemlose.MVVM.Model.User
         private ContractRepository contractRepo = new();
         private ProductRepository productRepo = new();
 
-        public AdminUser(int id, int companyId) : base(id, companyId) { }
+        public event EventHandler<ObservableCollection<Product>> ProductsChanged;
+
+        public AdminUser(int id, int companyId) : base(id, companyId) {
+            productRepo.RepositoryChanged += (_, list) =>
+            {
+                ProductsChanged?.Invoke(this, list);
+            };
+        }
         public static AdminUser FromReader(SqlDataReader reader) {
             int id = (int) reader["BrugerID"];
             int companyId = (int) reader["FirmaID"];
             return new AdminUser(id, companyId);
         }
 
-        public void CreateProduct(string type, string name, byte[]? imageData)
+        public Product CreateProduct(string type, string name, byte[]? imageData)
         {
-            productRepo.CreateProduct(type, name, imageData);
+            return productRepo.CreateProduct(type, name, imageData);
         }
 
         public void UpdateProduct(Product product)
@@ -43,9 +50,9 @@ namespace madtilhjemlose.MVVM.Model.User
             productRepo.UpdateProduct(product);
         }
 
-        public ObservableCollection<Product> GetProducts()
+        public void GetProducts()
         {
-            return productRepo.Products;
+            productRepo.GetProducts();
         }
     }
 }

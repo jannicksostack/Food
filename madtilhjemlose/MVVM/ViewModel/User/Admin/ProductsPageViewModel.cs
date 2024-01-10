@@ -36,35 +36,63 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         partial void OnNameChanged(string value)
         {
             CreateCommand.NotifyCanExecuteChanged();
+            UpdateCommand.NotifyCanExecuteChanged();
         }
 
         partial void OnImageDataChanged(byte[]? value)
         {
             CreateCommand.NotifyCanExecuteChanged();
+            UpdateCommand.NotifyCanExecuteChanged();
         }
 
         partial void OnTypeChanged(string value)
         {
             CreateCommand.NotifyCanExecuteChanged();
+            UpdateCommand.NotifyCanExecuteChanged();
         }
 
-        public RelayCommand SearchCommand { get; set; }
+        partial void OnItemsChanged(ObservableCollection<Product> value)
+        {
+            SearchItems = value;
+        }
+
+        public RelayCommand<string> SearchCommand { get; set; }
         public RelayCommand UpdateCommand { get; set; }
         public RelayCommand CreateCommand { get; set; }
+        public RelayCommand ResetCommand { get; set; }
         public AsyncRelayCommand ChooseFileCommand { get; set; }
 
 
         [ObservableProperty]
         private ObservableCollection<Product> items;
 
+        [ObservableProperty]
+        private ObservableCollection<Product> searchItems;
+
         public ProductsPageViewModel()
         {
-            SearchCommand = new RelayCommand(Search);
+            AdminUser.CurrentUser.ProductsChanged += OnProductsChanged;
+            AdminUser.CurrentUser.GetProducts();
+
+            SearchCommand = new RelayCommand<string>(Search);
             UpdateCommand = new RelayCommand(Update, CanUpdate);
             CreateCommand = new RelayCommand(CreateProduct, IsDataValid);
+            ResetCommand = new RelayCommand(Clear);
             ChooseFileCommand = new AsyncRelayCommand(ChooseFile);
 
-            Items = AdminUser.CurrentUser.GetProducts();
+        }
+
+        private void OnProductsChanged(object? sender, ObservableCollection<Product> list)
+        {
+            Items = list;
+        }
+
+        private void Clear()
+        {
+            SelectedProduct = null;
+            Name = "";
+            Type = "";
+            ImageData = null;
         }
 
         private void Update()
@@ -75,15 +103,15 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
             AdminUser.CurrentUser.UpdateProduct(SelectedProduct!);
         }
 
-        private void Search()
+        private void Search(string query)
         {
-
+            SearchItems = new(Items.Where(x => x.Name.ToLower().StartsWith(query.ToLower())));
         }
 
 
         private void CreateProduct()
         {
-           AdminUser.CurrentUser.CreateProduct(Type, Name, ImageData!);
+            SelectedProduct = AdminUser.CurrentUser.CreateProduct(Type, Name, ImageData!);
         }
 
         private async Task ChooseFile()
