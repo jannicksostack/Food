@@ -53,7 +53,7 @@ public class ProductRepository : BaseRepository
                 string type = (string) reader["ProduktType"];
                 byte[]? imageData = reader.IsDBNull("ProduktBillede") ? null : (byte[]) reader["ProduktBillede"];
 
-                Product p = new(id, name, type, imageData);
+                Product p = new(id, type, name, imageData);
 
                 products.Add(p);
             }
