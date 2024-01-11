@@ -2,8 +2,21 @@ namespace madtilhjemlose.MVVM.Model;
 
 public class Contract : ContentPage
 {
+	public int ContractID {  get; set; }
+	public string ContractStart {  get; set; }
+	public string ContractEnd {  get; set; }
+	public string CompanyName {  get; set; }
+	public string CompanyAddress { get; set; }
+
+
+
 	public Contract()
 	{
+		ContractID = 0;
+		ContractStart = "";
+		ContractEnd = "";
+		CompanyName = "";
+		CompanyAddress = "";
 		Content = new VerticalStackLayout
 		{
 			Children = {
@@ -12,4 +25,12 @@ public class Contract : ContentPage
 			}
 		};
 	}
+	public Contract(int contractID, string companyName, string contractStart, string contractEnd, string companyAddress)
+    {
+        ContractID = contractID;
+        ContractStart = contractStart;
+        ContractEnd = contractEnd;
+        CompanyName = companyName;
+        CompanyAddress = companyAddress;
+    }
 }

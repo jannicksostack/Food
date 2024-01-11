@@ -8,6 +8,22 @@
         <Button Text="Delete" Command="{Binding DeleteCommand}"/>
         <Button Text="Update" Command="{Binding UpdateCommand}"/>
         <Button Text="Create" Command="{Binding CreateCommand}"/>
-        <Image Source="{Binding Product}" HeightRequest="100"/>
+        <ScrollView HeightRequest="400">
+            <ListView ItemsSource="{Binding Items}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <HorizontalStackLayout Spacing="10" HeightRequest="100">
+                                <Image Source="{Binding ImageSource}"/>
+                                <VerticalStackLayout Spacing="5">
+                                    <Label Text="{Binding Type}" />
+                                    <Label Text="{Binding Name}" />
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
     </VerticalStackLayout>
 </ContentPage>

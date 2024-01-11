@@ -17,7 +17,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         public ICommand CreateCommand { get; set; }
 
         [ObservableProperty]
-        private ImageSource product;
+        private List<Product> items;
 
         public ProductsPageViewModel(INavigation navigation)
         {
@@ -27,8 +27,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
             UpdateCommand = new RelayCommand(Update);
             CreateCommand = new RelayCommand(Create);
 
-            
-            
+            Items = AdminUser.CurrentUser.GetProducts();
         }
 
         private void Create()
