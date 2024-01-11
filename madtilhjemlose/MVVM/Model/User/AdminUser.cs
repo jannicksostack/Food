@@ -27,10 +27,13 @@ namespace madtilhjemlose.MVVM.Model.User
         private ProductRepository productRepo = new();
 
         public event EventHandler<ObservableCollection<Product>> ProductsChanged;
+        public ObservableCollection<Product> Products;
 
         public AdminUser(int id, int companyId) : base(id, companyId) {
+            Products = GetProducts();
             productRepo.RepositoryChanged += (_, list) =>
             {
+                Products = new(list);
                 ProductsChanged?.Invoke(this, list);
             };
         }
@@ -50,9 +53,9 @@ namespace madtilhjemlose.MVVM.Model.User
             productRepo.UpdateProduct(product);
         }
 
-        public void GetProducts()
+        public ObservableCollection<Product> GetProducts()
         {
-            productRepo.GetProducts();
+            return productRepo.GetProducts();
         }
     }
 }

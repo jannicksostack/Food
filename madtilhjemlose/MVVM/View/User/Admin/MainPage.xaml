@@ -10,6 +10,7 @@
         <Button Text="Companies" Command="{Binding OpenCompanyCommand}" />
         <Button Text="Contracts" Command="{Binding OpenContractsCommand}" />
         <Button Text="Orders" Command="{Binding OpenOrdersCommand}" />
+        <Button Text="Active Products" Command="{Binding OpenActiveProductsCommand}" />
         <Button Text="Products" Command="{Binding OpenProductsCommand}" />
         <Button Text="Statistics" Command="{Binding OpenStatisticsCommand}" />
     </VerticalStackLayout>

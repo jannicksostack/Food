@@ -5,17 +5,15 @@ using System.Data;
 
 namespace madtilhjemlose.MVVM.DataAccess;
 
-public class ProductRepository : BaseRepository
+public class ActiveProductRepository : BaseRepository
 {
-    public ObservableCollection<Product> Products { get; set; } = new();
-    public ProductRepository() {
-    }
+    public ObservableCollection<ActiveProduct> ActiveProducts { get; set; } = new();
 
-    public event EventHandler<ObservableCollection<Product>> RepositoryChanged;
+    public event EventHandler<ObservableCollection<ActiveProduct>> RepositoryChanged;
 
-    public Product? CreateProduct(string type, string name, byte[]? imageData)
+    public ActiveProduct? Create(Product product, DateTime date, int quantity, decimal price)
     {
-        Product? product = null;
+        ActiveProduct? activeProduct = null;
         try
         {
             connection.Open();
@@ -29,7 +27,7 @@ public class ProductRepository : BaseRepository
             using SqlDataReader reader = command.ExecuteReader();
             reader.Read();
 
-            product = new(reader);
+            activeProduct = new(reader);
         }
         catch (Exception e)
         {
@@ -40,11 +38,11 @@ public class ProductRepository : BaseRepository
             connection.Close();
         }
 
-        GetProducts();
-        return product;
+        GetAll();
+        return activeProduct;
     }
 
-    public void UpdateProduct(Product product)
+    public void Update(ActiveProduct activeProduct)
     {
         try
         {
@@ -67,10 +65,10 @@ public class ProductRepository : BaseRepository
             connection.Close();
         }
 
-        GetProducts();
+        GetAll();
     }
 
-    public ObservableCollection<Product> GetProducts()
+    public ObservableCollection<ActiveProduct> GetAll()
     {
         try
         {
@@ -101,7 +99,7 @@ public class ProductRepository : BaseRepository
         return new();
     }
 
-    public void DeleteProduct(int id)
+    public void Delete(int id)
     {
         throw new NotImplementedException();
     }

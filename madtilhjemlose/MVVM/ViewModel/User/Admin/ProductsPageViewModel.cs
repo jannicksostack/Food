@@ -119,7 +119,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
             PickOptions options = new PickOptions();
             options.FileTypes = FilePickerFileType.Images;
             FileResult? result = await FilePicker.Default.PickAsync(options);
-            ImageData = Product.GetImageData(result?.FullPath);
+            ImageData = result is null ? null : Product.GetImageData(result.FullPath);
         }
 
         private bool IsDataValid()
