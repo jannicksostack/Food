@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using madtilhjemlose.MVVM.Model.User;
 using madtilhjemlose.MVVM.View.User.Admin;
 using System.Windows.Input;
 
@@ -7,8 +8,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 {
     internal class MainPageViewModel : ObservableValidator
     {
-        private INavigation navigation;
-     
+        public AdminUser User { get; set; }
         public ICommand LogoutCommand { get; set; }
         public ICommand OpenContractsCommand { get; set; }
         public ICommand OpenOrdersCommand { get; set; }
@@ -17,9 +17,9 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         public ICommand OpenCompanyCommand { get; set; }
 
 
-        public MainPageViewModel(INavigation navigation)
+        public MainPageViewModel(AdminUser user)
         {
-            this.navigation = navigation;
+            User = user;
             LogoutCommand = new RelayCommand(logout);
             OpenCompanyCommand = new RelayCommand(OpenCompany);
             OpenContractsCommand = new RelayCommand(OpenContracts);
@@ -30,32 +30,32 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 
         private void OpenStatistics()
         {
-            navigation.PushAsync(new StatisticsPage());
+            App.Current.MainPage.Navigation.PushAsync(new StatisticsPage());
         }
 
         private void OpenProducts()
         {
-            navigation.PushAsync(new ProductsPage());
+            App.Current.MainPage.Navigation.PushAsync(new ProductsPage());
         }
 
         private void OpenOrders()
         {
-            navigation.PushAsync(new OrdersPage());
+            App.Current.MainPage.Navigation.PushAsync(new OrdersPage());
         }
 
         private void OpenContracts()
         {
-            navigation.PushAsync(new ContractsPage());
+            App.Current.MainPage.Navigation.PushAsync(new ContractsPage());
         }
 
         private void OpenCompany()
         {
-            navigation.PushAsync(new CompanyPage());
+            App.Current.MainPage.Navigation.PushAsync(new CompanyPage());
         }
 
         private void logout()
         {
-            navigation.PopToRootAsync();
+            App.Current.MainPage.Navigation.PopToRootAsync();
         }
     }
 }

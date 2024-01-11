@@ -8,5 +8,6 @@
         <Button Text="Delete" Command="{Binding DeleteCommand}"/>
         <Button Text="Update" Command="{Binding UpdateCommand}"/>
         <Button Text="Create" Command="{Binding CreateCommand}"/>
+        <Image Source="{Binding Product}" HeightRequest="100"/>
     </VerticalStackLayout>
 </ContentPage>

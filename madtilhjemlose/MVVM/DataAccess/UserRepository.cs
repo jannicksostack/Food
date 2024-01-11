@@ -35,11 +35,12 @@ public class UserRepository : BaseRepository
 				UserType.Restricted => RestrictedUser.FromReader(reader),
 				_ => throw new InvalidDataException()
 			};
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
-			Console.WriteLine("Exception:");
-			Console.WriteLine(e.Message);
-		} finally
+			ShowErrorMessage(e.ToString());
+		}
+		finally
 		{
 			connection.Close();
 		}

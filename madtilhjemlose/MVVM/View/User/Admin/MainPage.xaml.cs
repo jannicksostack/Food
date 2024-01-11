@@ -8,6 +8,6 @@ public partial class MainPage : ContentPage
 	public MainPage(AdminUser admin)
 	{
 		InitializeComponent();
-		BindingContext = new MainPageViewModel(Navigation);
+		BindingContext = new MainPageViewModel(admin);
 	}
 }
