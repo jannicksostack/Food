@@ -73,12 +73,9 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
                             _contract.CompanyAddress = ContractList[i].CompanyAddress;
                             OnPropertyChanged(nameof(SelectedContract));
                             OnPropertyChanged(nameof(SelectedCompanyName));
-
                             break;
                         }
                     }
-                    
-                    
                 }
             }
         }
