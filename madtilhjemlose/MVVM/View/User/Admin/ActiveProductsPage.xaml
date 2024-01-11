@@ -50,15 +50,14 @@
             </Grid.ColumnDefinitions>
             <SearchBar x:Name="searchBar" Grid.Row="0" SearchCommand="{Binding SearchCommand}" SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
             <ScrollView Margin="0,10,0,0" Grid.Row="1" VerticalOptions="Fill">
-                <ListView ItemsSource="{Binding SearchItems}" SelectedItem="{Binding SelectedProduct}">
+                <ListView ItemsSource="{Binding SearchItems}" SelectedItem="{Binding SelectedActiveProduct}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <HorizontalStackLayout Spacing="10">
-                                    <Image Source="{Binding ImageSource}" WidthRequest="100" HeightRequest="100"/>
+                                    <Image Source="{Binding Product.ImageSource}" WidthRequest="100" HeightRequest="100"/>
                                     <VerticalStackLayout Spacing="5" Margin="10">
-                                        <Label Text="{Binding Type}" />
-                                        <Label Text="{Binding Name}" />
+                                        <Label Text="{Binding Product.Name}" />
                                     </VerticalStackLayout>
                                 </HorizontalStackLayout>
                             </ViewCell>

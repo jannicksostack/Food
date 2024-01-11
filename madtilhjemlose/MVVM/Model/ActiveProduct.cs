@@ -3,6 +3,7 @@ using madtilhjemlose.MVVM.Model.User;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,21 +17,21 @@ namespace madtilhjemlose.MVVM.Model
         [ObservableProperty]
         private Product product;
         [ObservableProperty]
-        private DateOnly date;
+        private DateTime date;
         [ObservableProperty]
         private int quantity;
         [ObservableProperty]
         private decimal price;
 
-        public ActiveProduct(SqlDataReader reader)
+        public ActiveProduct(SqlDataReader reader, ObservableCollection<Product> products)
         {
             Id = (int) reader["AktiveProduktID"];
-            Date = (DateOnly) reader["AktiveProduktUdløbsdato"];
+            Date = (DateTime) reader["AktiveProduktUdløbsdato"];
             Quantity = (int) reader["AktiveProduktMaxMængde"];
             Price = (decimal) reader["AktiveProduktPris"];
 
-            int productId = (int) reader["ProductID"];
-            Product = AdminUser.CurrentUser.Products.First(x => x.Id == productId);
+            int productId = (int) reader["ProduktID"];
+            Product = products.First(x => x.Id == productId);
         }
     }
 }

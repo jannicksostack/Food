@@ -11,6 +11,13 @@ public class ActiveProductRepository : BaseRepository
 
     public event EventHandler<ObservableCollection<ActiveProduct>> RepositoryChanged;
 
+    private ProductRepository productRepo;
+
+    public ActiveProductRepository(ProductRepository repo)
+    {
+        productRepo = repo;
+    }
+
     public ActiveProduct? Create(Product product, DateTime date, int quantity, decimal price)
     {
         ActiveProduct? activeProduct = null;
@@ -19,15 +26,16 @@ public class ActiveProductRepository : BaseRepository
             connection.Open();
 
             using SqlCommand command = connection.CreateCommand();
-            command.CommandText = "insert into Produkt(ProduktType, ProduktNavn, ProduktBillede) output Inserted.ProduktID, Inserted.ProduktNavn, Inserted.ProduktType, Inserted.ProduktBillede values (@1, @2, @3)";
-            command.Parameters.AddWithValue("@1", type);
-            command.Parameters.AddWithValue("@2", name);
-            command.Parameters.AddWithValue("@3", imageData);
+            command.CommandText = "insert into AktiveProdukt(ProduktID, AktiveProduktUdløbsdato, AktiveProduktMaxMængde, AktiveProduktPris) output Inserted.AktiveProduktID, Inserted.ProduktID, Inserted.AktiveProduktUdløbsdato, Inserted.AktiveProduktMaxMængde, Inserted.AktiveProduktPris values (@1, @2, @3, @4)";
+            command.Parameters.AddWithValue("@1", product.Id);
+            command.Parameters.AddWithValue("@2", date);
+            command.Parameters.AddWithValue("@3", quantity);
+            command.Parameters.AddWithValue("@4", price);
 
             using SqlDataReader reader = command.ExecuteReader();
             reader.Read();
 
-            activeProduct = new(reader);
+            activeProduct = new(reader, productRepo.Products);
         }
         catch (Exception e)
         {
@@ -44,6 +52,7 @@ public class ActiveProductRepository : BaseRepository
 
     public void Update(ActiveProduct activeProduct)
     {
+        /*
         try
         {
             connection.Open();
@@ -66,6 +75,7 @@ public class ActiveProductRepository : BaseRepository
         }
 
         GetAll();
+        */
     }
 
     public ObservableCollection<ActiveProduct> GetAll()
@@ -74,19 +84,19 @@ public class ActiveProductRepository : BaseRepository
         {
             connection.Open();
             using SqlCommand command = connection.CreateCommand();
-            command.CommandText = "select ProduktID, ProduktNavn, ProduktType, ProduktBillede from Produkt order by ProduktType, ProduktNavn";
+            command.CommandText = "select AktiveProduktID, ProduktID, AktiveProduktUdløbsdato, AktiveProduktMaxMængde, AktiveProduktPris from AktiveProdukt Where AktiveProduktUdløbsdato >= cast(GetDate() as date) order by AktiveProduktUdløbsdato asc";
 
             using SqlDataReader reader = command.ExecuteReader();
 
-            List<Product> products = new();
+            List<ActiveProduct> activeProducts = new();
             while (reader.Read())
             {
-                products.Add(new Product(reader));
+                activeProducts.Add(new(reader, productRepo.Products));
             }
 
-            Products = new(products);
-            RepositoryChanged?.Invoke(this, Products);
-            return Products;
+            ActiveProducts = new(activeProducts);
+            RepositoryChanged?.Invoke(this, ActiveProducts);
+            return ActiveProducts;
         }
         catch(Exception e)
         {

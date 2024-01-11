@@ -48,14 +48,24 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 
 
         [ObservableProperty]
-        private ObservableCollection<Product> items;
+        private ObservableCollection<ActiveProduct> items;
+
+        partial void OnItemsChanged(ObservableCollection<ActiveProduct>? oldValue, ObservableCollection<ActiveProduct> newValue)
+        {
+            SearchItems = new(newValue);
+        }
 
         [ObservableProperty]
-        private ObservableCollection<Product> searchItems;
+        private ObservableCollection<ActiveProduct> searchItems;
 
         public ActiveProductsPageViewModel()
         {
             Products = new(AdminUser.CurrentUser.GetProducts().OrderBy(x => x.Name));
+            Items = new(AdminUser.CurrentUser.ActiveProducts);
+            AdminUser.CurrentUser.ActiveProductsChanged += (_, list) =>
+            {
+                Items = new(list);
+            };
 
             SearchCommand = new RelayCommand<string>(Search);
             UpdateCommand = new RelayCommand(Update, CanUpdate);
@@ -82,13 +92,13 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 
         private void Search(string? query)
         {
-            //SearchItems = new(Items.Where(x => x.Name.ToLower().StartsWith(query.ToLower())));
+            SearchItems = new(Items.Where(x => x.Product.Name.ToLower().StartsWith(query.ToLower())));
         }
 
 
         private void Create()
         {
-            //SelectedProduct = AdminUser.CurrentUser.CreateProduct(Type, Name, ImageData!);
+            SelectedActiveProduct = AdminUser.CurrentUser.CreateActiveProduct(SelectedProduct, Date, Convert.ToInt32(Quantity), Convert.ToDecimal(Price));
         }
 
         private bool IsDataValid()
