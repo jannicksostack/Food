@@ -4,7 +4,7 @@
              x:Class="madtilhjemlose.MVVM.View.User.Admin.CompanyPage"
              >
 
-        <StackLayout Margin="10" Padding="80"  Spacing="10">
+    <StackLayout Margin="10" Padding="80"  Spacing="10">
 
         <Image Source="jjmstore.png" 
                HeightRequest="185"
@@ -14,19 +14,37 @@
                FontSize="22"
                HorizontalTextAlignment="Center" BackgroundColor="Coral" TextColor="White"/>
         <Grid RowDefinitions="*, *"
-             ColumnDefinitions="*, *"
+             ColumnDefinitions="*, *, *"
              BackgroundColor="WhiteSmoke"
              Padding="30" ColumnSpacing="2" 
-             RowSpacing="10" Grid.Row="5"
-             >
-            
-            <Label Text="Search a Company" FontSize="18" FontFamily="Calibri"
-             Grid.Column="0" Grid.Row="1" />
-            <SearchBar Placeholder="Søg efter navn eller adresse" 
-                       Grid.Column="1" Grid.Row="1" 
-                       WidthRequest="240" 
-                       HorizontalTextAlignment="Start" >
-            </SearchBar>
+             RowSpacing="10" Grid.Row="5">
+
+            <Button Text="Add new" 
+                    FontSize="14" 
+                    Grid.Column="0" 
+                    Grid.Row="1"
+                    BackgroundColor="Coral"  
+                    WidthRequest="130" 
+                    
+            />
+
+            <Button Text="Update" 
+                    FontSize="14" 
+                    Grid.Column="1" 
+                    BackgroundColor="Coral"  
+                    WidthRequest="130" 
+                    Grid.Row="1"
+                    
+             />
+
+
+            <SearchBar x:Name="searchBar" Placeholder="Søg efter navn eller adresse" 
+                      SearchCommand="{Binding SearchCommand}"
+                      SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                      Grid.Column="2" Grid.Row="1" 
+                      WidthRequest="240" 
+                      HorizontalTextAlignment="Start" />
+
         </Grid>
         <Grid RowDefinitions="*, *, *, *, *, *"
               ColumnDefinitions="*, *, *, *" 
@@ -36,19 +54,21 @@
             <Label Text="FirmaID" Grid.Column="0" Grid.Row="2" HorizontalTextAlignment="Center"/>
             <Label Text="FirmaNavn" Grid.Column="1" Grid.Row="2" HorizontalTextAlignment="Center"/>
             <Label Text="FirmaAdress" Grid.Column="2" Grid.Row="2" HorizontalTextAlignment="Center"/>
-            <!--
-            <Button Text="Search" Command="{Binding SearchCommand}" WidthRequest="100" Grid.Column="3" BackgroundColor="WhiteSmoke" TextColor="Black"/>
-            -->
-            
-         </Grid>
+            <ListView x:Name="searchResults"
+                      ItemsSource="{Binding SearchItems}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Name}"/>
+                                <Label Text="{Binding Address}"/>
+                            </VerticalStackLayout>
 
-        <!--SearchBar x:Name="searchBar" Text="Search"
-                   SearchCommand="{Binding PerformSearch}"
-                 SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
-           <ListView x:Name="searchResults"
-                 ItemsSource="{Binding SearchResults}"-->
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
-
-
+        </Grid>
     </StackLayout>
 </ContentPage>
