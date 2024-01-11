@@ -8,7 +8,12 @@ using System.Windows.Input;
 using System;
 using System.Drawing;
 using System.Drawing.Printing;
+using PdfSharp.Pdf;
+using PdfSharp.Drawing;
+using PdfSharp.Fonts;
 using static System.Net.Mime.MediaTypeNames;
+using Microsoft.Maui.Controls.Shapes;
+using System.Drawing.Text;
 
 namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 {
@@ -38,16 +43,51 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         private void CreatePDF() // Jesper - This code was inspired from ChatGPT's help  
         {
             // where the file is saved to
-            string filePath = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + _contract.CompanyName.Trim() + "contract.pdf";
+            string filePath = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop) +"\\" + _contract.CompanyName.Trim() + "contract.pdf";
 
             // Check if the file already exists
             if (File.Exists(filePath))
             {
                 return;
             }
+            try
+            {
+                PdfDocument pdfDocument = new PdfDocument();
+
+                // Add a page to the document
+                PdfPage page = pdfDocument.AddPage();
+
+                // Create a graphics object for the page
+                XGraphics gfx = XGraphics.FromPdfPage(page);
+
+                InstalledFontCollection installedFontCollection = new InstalledFontCollection();
+                string chosenFont = "";
+                foreach (FontFamily fontFamily in installedFontCollection.Families) { if (fontFamily.Name == "Calibri") {chosenFont = fontFamily.Name; break; } }
+                
+                // Create a font for the text
+                //XFont font = new XFont("Arial", 12, XFontStyleEx.Regular);
+                XFont font = new XFont(chosenFont.ToString(), 12,XFontStyleEx.Regular);
+
+                // Draw the text on the PDF
+                gfx.DrawString("This is a line in the PDF.", font, XBrushes.Black, 100, 100);
+
+                // Save the document to the specified path
+                pdfDocument.Save(filePath);
+
+                //Console.WriteLine($"PDF created at: {System.IO.Path.GetFullPath(filePath)}");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            /*
+        try
+        {
 
             // Create a PrintDocument object
-            PrintDocument pd = new PrintDocument();
+            System.Drawing.Printing.PrintDocument pd = new PrintDocument();
             // Set the PrintPage event handler
             pd.PrintPage += (sender, e) =>
             {
@@ -68,6 +108,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
                 {
                     e.Graphics.DrawString(line, font, brush, 50, 50);
                 }
+
             };
             // Save the document as a PDF file
             pd.PrintController = new StandardPrintController();
@@ -76,6 +117,13 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 
             // Print the document (this will trigger the PrintPage event)
             pd.Print();
+        }
+        catch (Exception ex)
+        {
+
+            throw;
+        }
+        */
         }
 
         public List<Contract> ContractList { get; set; }
