@@ -53,7 +53,7 @@
                 <ListView ItemsSource="{Binding SearchItems}" SelectedItem="{Binding SelectedActiveProduct}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell BindingContext="model:ActiveProduct">
+                            <ViewCell>
                                 <HorizontalStackLayout Spacing="10">
                                     <Image Source="{Binding Product.ImageSource}" WidthRequest="100" HeightRequest="100"/>
                                     <VerticalStackLayout Spacing="5" Margin="10">
@@ -65,6 +65,14 @@
                                             </Grid.ColumnDefinitions>
                                             <Label Grid.Column="0" Text="{Binding Quantity}"/>
                                             <Label Grid.Column="1" Text=" stk"/>
+                                        </Grid>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0" Text="{Binding Price}"/>
+                                            <Label Grid.Column="1" Text=" DKK"/>
                                         </Grid>
                                     </VerticalStackLayout>
                                 </HorizontalStackLayout>
