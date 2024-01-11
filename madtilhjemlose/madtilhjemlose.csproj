@@ -57,6 +57,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<EmbeddedResource Include="Resources\Fonts\*" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\Images\jjmstore.png" />
 	</ItemGroup>
 
