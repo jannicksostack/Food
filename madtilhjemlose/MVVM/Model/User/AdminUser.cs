@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace madtilhjemlose.MVVM.Model.User
 {
@@ -25,21 +26,33 @@ namespace madtilhjemlose.MVVM.Model.User
         private ContractRepository contractRepo = new();
         private ProductRepository productRepo = new();
 
-        public AdminUser(int id, int companyId) : base(id, companyId) { }
+        public event EventHandler<ObservableCollection<Product>> ProductsChanged;
+
+        public AdminUser(int id, int companyId) : base(id, companyId) {
+            productRepo.RepositoryChanged += (_, list) =>
+            {
+                ProductsChanged?.Invoke(this, list);
+            };
+        }
         public static AdminUser FromReader(SqlDataReader reader) {
             int id = (int) reader["BrugerID"];
             int companyId = (int) reader["FirmaID"];
             return new AdminUser(id, companyId);
         }
 
-        public bool CreateProduct(string type, string name, string imagePath)
+        public Product CreateProduct(string type, string name, byte[]? imageData)
         {
-            return productRepo.CreateProduct(type, name, imagePath);
+            return productRepo.CreateProduct(type, name, imageData);
         }
 
-        public List<Product> GetProducts()
+        public void UpdateProduct(Product product)
         {
-            return productRepo.GetProducts();
+            productRepo.UpdateProduct(product);
+        }
+
+        public void GetProducts()
+        {
+            productRepo.GetProducts();
         }
     }
 }

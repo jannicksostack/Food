@@ -1,29 +1,63 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="madtilhjemlose.MVVM.View.User.Admin.ProductsPage" >
-    <VerticalStackLayout>
-        <Label Text="Products" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-        <Button Text="Search" Command="{Binding SearchCommand}"/>
-        <Button Text="Delete" Command="{Binding DeleteCommand}"/>
-        <Button Text="Update" Command="{Binding UpdateCommand}"/>
-        <Button Text="Create" Command="{Binding CreateCommand}"/>
-        <ScrollView HeightRequest="400">
-            <ListView ItemsSource="{Binding Items}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <HorizontalStackLayout Spacing="10" HeightRequest="100">
-                                <Image Source="{Binding ImageSource}"/>
-                                <VerticalStackLayout Spacing="5">
-                                    <Label Text="{Binding Type}" />
-                                    <Label Text="{Binding Name}" />
-                                </VerticalStackLayout>
-                            </HorizontalStackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </ScrollView>
-    </VerticalStackLayout>
+             x:Class="madtilhjemlose.MVVM.View.User.Admin.ProductsPage"
+             xmlns:model="clr-namespace:madtilhjemlose.MVVM.Model"
+             xmlns:conv="clr-namespace:madtilhjemlose.MVVM.ValueConverter"
+             Title="Produkter"
+             >
+    <ContentPage.Resources>
+        <conv:ImageDataToImageSource x:Key="DataToImageSource" />
+    </ContentPage.Resources>
+    <Grid Margin="30" ColumnSpacing="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <VerticalStackLayout Grid.Column="0" WidthRequest="300" Spacing="10">
+            <Image Source="{Binding ImageData, Converter={StaticResource DataToImageSource}}" HeightRequest="150"/>
+            <Button Text="Vælg fil.." Command="{Binding ChooseFileCommand}" WidthRequest="200"/>
+            <Entry Placeholder="Type" Text="{Binding Type}"/>
+            <Entry Placeholder="Navn" Text="{Binding Name}"/>
+            <Grid ColumnSpacing="20" Margin="0,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Text="Opret" Command="{Binding CreateCommand}" />
+                <Button Grid.Column="1" Text="Opdater" Command="{Binding UpdateCommand}" />
+            </Grid>
+            <Button Text="Reset" Command="{Binding ResetCommand}" WidthRequest="100" BackgroundColor="Red"/>
+        </VerticalStackLayout>
+        <Grid Grid.Column="1" HorizontalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <SearchBar x:Name="searchBar" Grid.Row="0" SearchCommand="{Binding SearchCommand}" SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}" />
+            <ScrollView Margin="0,10,0,0" Grid.Row="1" VerticalOptions="Fill">
+                <ListView ItemsSource="{Binding SearchItems}" SelectedItem="{Binding SelectedProduct}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <HorizontalStackLayout Spacing="10">
+                                    <Image Source="{Binding ImageSource}" WidthRequest="100" HeightRequest="100"/>
+                                    <VerticalStackLayout Spacing="5" Margin="10">
+                                        <Label Text="{Binding Type}" />
+                                        <Label Text="{Binding Name}" />
+                                    </VerticalStackLayout>
+                                </HorizontalStackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+        </Grid>
+    </Grid>
 </ContentPage>
