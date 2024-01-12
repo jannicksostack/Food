@@ -40,7 +40,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
             navigation.PushAsync(new CreateContractPage());
         }
 
-        private void CreatePDF() // Jesper - This code was inspired from ChatGPT's help  
+        private void CreatePDF() // Jesper og Jannick
         {
             // where the file is saved to
             string filePath = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop) +"\\" + _contract.CompanyName.Trim() + "contract.pdf";
@@ -68,29 +68,6 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
                 //XFont font = new XFont("Arial", 12, XFontStyleEx.Regular);
                 XFont font = new XFont(chosenFont.ToString(), 12,XFontStyleEx.Regular);
 
-                // Draw the text on the PDF
-                gfx.DrawString("This is a line in the PDF.", font, XBrushes.Black, 100, 100);
-
-                // Save the document to the specified path
-                pdfDocument.Save(filePath);
-
-                //Console.WriteLine($"PDF created at: {System.IO.Path.GetFullPath(filePath)}");
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-            /*
-        try
-        {
-
-            // Create a PrintDocument object
-            System.Drawing.Printing.PrintDocument pd = new PrintDocument();
-            // Set the PrintPage event handler
-            pd.PrintPage += (sender, e) =>
-            {
                 DateTime currentDate = DateTime.Now;
 
                 List<string> lines = new List<string>();
@@ -101,29 +78,22 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
                 lines.Add("Contract end date : " + SelectedEndDate.ToString());
                 lines.Add("Company address : " + SelectedCompanyAddress.ToString());
 
-                System.Drawing.Font font = new System.Drawing.Font("Arial", 12);
-                SolidBrush brush = new SolidBrush(System.Drawing.Color.White);
-
-                foreach (string line in lines)
+                for(int i = 0; i < lines.Count; i++)
                 {
-                    e.Graphics.DrawString(line, font, brush, 50, 50);
+                    // Draw the text on the PDF
+                    gfx.DrawString(lines[i].ToString(), font, XBrushes.Black, 100, (i+1) * 50);
+                    // note: 100 and (i+1)*50 are the x,y coordinates
                 }
+                // Save the document to the specified path
+                pdfDocument.Save(filePath);
 
-            };
-            // Save the document as a PDF file
-            pd.PrintController = new StandardPrintController();
-            pd.PrinterSettings.PrintToFile = true;
-            pd.PrinterSettings.PrintFileName = filePath;
+            }
+            catch (Exception)
+            {
 
-            // Print the document (this will trigger the PrintPage event)
-            pd.Print();
-        }
-        catch (Exception ex)
-        {
+                throw;
+            }
 
-            throw;
-        }
-        */
         }
 
         public List<Contract> ContractList { get; set; }

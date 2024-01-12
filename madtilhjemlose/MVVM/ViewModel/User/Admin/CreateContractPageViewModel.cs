@@ -10,5 +10,10 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         {
             this.navigation = navigation;
         }
+
+
+
+
+
     }
 }
