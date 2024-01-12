@@ -70,7 +70,7 @@ public class ProductRepository : BaseRepository
         GetProducts();
     }
 
-    public void GetProducts()
+    public ObservableCollection<Product> GetProducts()
     {
         try
         {
@@ -88,6 +88,7 @@ public class ProductRepository : BaseRepository
 
             Products = new(products);
             RepositoryChanged?.Invoke(this, Products);
+            return Products;
         }
         catch(Exception e)
         {
@@ -97,6 +98,7 @@ public class ProductRepository : BaseRepository
         {
             connection.Close();
         }
+        return new();
     }
 
     public void DeleteProduct(int id)

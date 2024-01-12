@@ -1,4 +1,5 @@
 ﻿using madtilhjemlose.MVVM.View;
+using PdfSharp.Fonts;
 
 namespace madtilhjemlose
 {
@@ -9,7 +10,7 @@ namespace madtilhjemlose
         public App()
         {
             InitializeComponent();
-
+            GlobalFontSettings.FontResolver = new FontResolver();
             MainPage = new NavigationPage(new LoginPage());
         }
     }
