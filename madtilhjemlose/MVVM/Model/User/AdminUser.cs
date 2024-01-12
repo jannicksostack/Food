@@ -25,13 +25,28 @@ namespace madtilhjemlose.MVVM.Model.User
         private UserRepository userRepo = new();
         private ContractRepository contractRepo = new();
         private ProductRepository productRepo = new();
+        private ActiveProductRepository activeProductRepo;
 
         public event EventHandler<ObservableCollection<Product>> ProductsChanged;
+        public ObservableCollection<Product> Products;
+
+        public event EventHandler<ObservableCollection<ActiveProduct>> ActiveProductsChanged;
+        public ObservableCollection<ActiveProduct> ActiveProducts;
 
         public AdminUser(int id, int companyId) : base(id, companyId) {
+            activeProductRepo = new(productRepo);
+
+            Products = GetProducts();
+            ActiveProducts = GetActiveProducts();
             productRepo.RepositoryChanged += (_, list) =>
             {
+                Products = new(list);
                 ProductsChanged?.Invoke(this, list);
+            };
+            activeProductRepo.RepositoryChanged += (_, list) =>
+            {
+                ActiveProducts = new(list);
+                ActiveProductsChanged?.Invoke(this, list);
             };
         }
         public static AdminUser FromReader(SqlDataReader reader) {
@@ -45,14 +60,23 @@ namespace madtilhjemlose.MVVM.Model.User
             return productRepo.CreateProduct(type, name, imageData);
         }
 
+        public ActiveProduct? CreateActiveProduct(Product product, DateTime date, int quantity, decimal price)
+        {
+            return activeProductRepo.Create(product, date, quantity, price);
+        }
+
         public void UpdateProduct(Product product)
         {
             productRepo.UpdateProduct(product);
         }
 
-        public void GetProducts()
+        public ObservableCollection<Product> GetProducts()
         {
-            productRepo.GetProducts();
+            return productRepo.GetProducts();
+        }
+        public ObservableCollection<ActiveProduct> GetActiveProducts()
+        {
+            return activeProductRepo.GetAll();
         }
     }
 }

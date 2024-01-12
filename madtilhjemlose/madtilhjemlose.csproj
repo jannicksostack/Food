@@ -118,6 +118,9 @@
 	  <Compile Update="MVVM\View\User\Admin\MainPage.xaml.cs">
 	    <DependentUpon>MainPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="MVVM\View\User\Admin\ActiveProductsPage.xaml.cs">
+	    <DependentUpon>ActiveProductsPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="MVVM\View\User\Default\ContractPage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
@@ -176,6 +179,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="MVVM\View\User\Admin\CompanyPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\View\User\Admin\ActiveProductsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="MVVM\View\User\Default\ContractPage.xaml">
