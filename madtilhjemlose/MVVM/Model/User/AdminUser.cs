@@ -78,5 +78,10 @@ namespace madtilhjemlose.MVVM.Model.User
         {
             return activeProductRepo.GetAll();
         }
+
+        public void UpdateActiveProduct(ActiveProduct activeProduct)
+        {
+            activeProductRepo.Update(activeProduct);
+        }
     }
 }

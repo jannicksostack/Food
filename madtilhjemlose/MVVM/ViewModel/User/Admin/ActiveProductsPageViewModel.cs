@@ -34,6 +34,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         private Product? selectedProduct;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(UpdateCommand))]
         private ActiveProduct? selectedActiveProduct;
 
         [ObservableProperty]
@@ -53,6 +54,19 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         partial void OnItemsChanged(ObservableCollection<ActiveProduct>? oldValue, ObservableCollection<ActiveProduct> newValue)
         {
             SearchItems = new(newValue);
+        }
+
+        partial void OnSelectedActiveProductChanged(ActiveProduct? value)
+        {
+            if (value is null)
+            {
+                return;
+            }
+
+            Quantity = value.Quantity.ToString();
+            Price = value.Price.ToString();
+            Date = value.Date;
+            SelectedProduct = Products.First(x => x.Id == value.Product.Id);
         }
 
         [ObservableProperty]
@@ -80,14 +94,16 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
             Quantity = "";
             Price = "";
             Date = DateTime.Now;
+            SelectedActiveProduct = null;
         }
 
         private void Update()
         {
-            //SelectedProduct.Name = Name;
-            //SelectedProduct.Type = Type;
-            //SelectedProduct.ImageData = ImageData;
-            //AdminUser.CurrentUser.UpdateProduct(SelectedProduct!);
+            SelectedActiveProduct.Product = SelectedProduct;
+            SelectedActiveProduct.Date = Date;
+            SelectedActiveProduct.Quantity = Convert.ToInt32(Quantity);
+            SelectedActiveProduct.Price = Convert.ToDecimal(Price.Replace('.', ','));
+            AdminUser.CurrentUser.UpdateActiveProduct(SelectedActiveProduct);
         }
 
         private void Search(string? query)
@@ -98,12 +114,14 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 
         private void Create()
         {
-            SelectedActiveProduct = AdminUser.CurrentUser.CreateActiveProduct(SelectedProduct, Date, Convert.ToInt32(Quantity), Convert.ToDecimal(Price));
+            SelectedActiveProduct = AdminUser.CurrentUser.CreateActiveProduct(SelectedProduct, Date, Convert.ToInt32(Quantity), Convert.ToDecimal(Price.Replace('.',',')));
         }
 
         private bool IsDataValid()
         {
-            return SelectedProduct is not null && !Quantity.IsNullOrEmpty() && !Price.IsNullOrEmpty() && Date.Date >= DateTime.Now.Date;
+            bool isInt = Int32.TryParse(Quantity, out int _);
+            bool isDecimal = Decimal.TryParse(Price, out decimal _);
+            return SelectedProduct is not null && isInt && isDecimal && Date.Date >= DateTime.Now.Date;
         }
 
         private bool CanUpdate()
