@@ -8,38 +8,49 @@
         <Button Text="Create New Contract" Command="{Binding CreateContractCommand}" />
     </VerticalStackLayout>
     -->
+    <StackLayout Margin="10" Padding="80"  Spacing="10">
 
-    <Grid Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="100"/> <!--5-->
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="60"/> <!--10-->
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Text="Contracts" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-        <Button Grid.Column="3" Grid.Row="10" Text="Generate PDF" Command="{Binding CreatePDFCommand}" />
-        <Picker Grid.Row="2" Grid.Column="0" x:Name="ContractPicker" Title="Vælg en kontrakt" ItemsSource="{Binding ContractList}" ItemDisplayBinding="{Binding CompanyName}" SelectedItem="{Binding SelectedContract, Mode=TwoWay}" />
-        <Label Grid.Column="1" Grid.Row="3" Text="{Binding SelectedContractID}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-        <Label Grid.Column="1" Grid.Row="4" Text="{Binding SelectedStartDate}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-        <Label Grid.Column="1" Grid.Row="5" Text="{Binding SelectedEndDate}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-        <Label Grid.Column="1" Grid.Row="6" Text="{Binding SelectedCompanyAddress}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-        <Label Grid.Column="0" Grid.Row="3" Text="Kontrakt ID" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-        <Label Grid.Column="0" Grid.Row="4" Text="Firma Adresse" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-        <Label Grid.Column="0" Grid.Row="5" Text="Kontrakt Start dato (dd/mm/yyyy)" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-        <Label Grid.Column="0" Grid.Row="6" Text="Kontrakt slut dato (dd/mm/yyyy)" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-    </Grid>
+        <Image Source="jjmstore.png" 
+        HeightRequest="185"
+        Aspect="AspectFit" 
+        SemanticProperties.Description="Logo"/>
+        <Label Text="Contracts" 
+        FontSize="22"
+        HorizontalTextAlignment="Center" BackgroundColor="Coral" TextColor="White"/>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="100"/>
+                <!--5-->
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="60"/>
+                <!--10-->
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="3" Grid.Row="2" Text="Create new contract" Command="{Binding CreateContractCommand}"/>
+            <Button Grid.Column="3" Grid.Row="4" Text="Generate PDF" Command="{Binding CreatePDFCommand}" />
+            <Picker Grid.Row="0" Grid.Column="0" x:Name="ContractPicker" Title="Vælg en kontrakt" ItemsSource="{Binding ContractList}" ItemDisplayBinding="{Binding CompanyName}" SelectedItem="{Binding SelectedContract, Mode=TwoWay}" />
+            <Label Grid.Column="1" Grid.Row="1" Text="{Binding SelectedContractID}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="1" Grid.Row="2" Text="{Binding SelectedStartDate}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="1" Grid.Row="3" Text="{Binding SelectedEndDate}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="1" Grid.Row="4" Text="{Binding SelectedCompanyAddress}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="1" Text="Kontrakt ID" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="2" Text="Firma Adresse" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="3" Text="Kontrakt Start dato (dd/mm/yyyy)" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="4" Text="Kontrakt slut dato (dd/mm/yyyy)" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+        </Grid>
+    </StackLayout>
 </ContentPage>
