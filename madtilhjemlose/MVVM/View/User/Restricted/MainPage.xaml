@@ -2,10 +2,19 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="madtilhjemlose.MVVM.View.User.Restricted.MainPage" >
-    <VerticalStackLayout>
-        <Label Text="Customer" HorizontalTextAlignment="Center"/>
-        <Button Text="Logout" Command="{Binding LogoutCommand}" />
-        <Button Text="View Contract" Command="{Binding ViewContractCommand}" />
-        <Button Text="View Last Order" Command="{Binding ViewLastOrderCommand}" />
+    
+    <VerticalStackLayout Padding="10" Margin="10" WidthRequest="400" Spacing="10">
+        <Image Source="jjmstore.png" 
+                HeightRequest="185"
+                Aspect="AspectFit" 
+                SemanticProperties.Description="Logo"/>
+        <Label Text="Companies" 
+                FontSize="22"
+                HorizontalTextAlignment="Center" 
+                BackgroundColor="CadetBlue" TextColor="White"/>
+
+        <Button Text="Logout" Command="{Binding LogoutCommand}"  WidthRequest="250" BackgroundColor="CadetBlue" TextColor="White" />
+        <Button Text="View Contract" Command="{Binding ViewContractCommand}" WidthRequest="250" BackgroundColor="CadetBlue" TextColor="White" />
+        <Button Text="View Last Order" Command="{Binding ViewLastOrderCommand}" WidthRequest="250" BackgroundColor="CadetBlue" TextColor="White" />
     </VerticalStackLayout>
 </ContentPage>

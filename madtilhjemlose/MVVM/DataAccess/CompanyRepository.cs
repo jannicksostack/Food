@@ -19,7 +19,7 @@ public class CompanyRepository : BaseRepository
             connection.Open();
 
             using SqlCommand command = connection.CreateCommand();
-            command.CommandText = "INSERT INTO Firma(FirmaNavn, FirmaAdresse) otuput Inserted.FirmaID, Inserted.FirmaNavn, Inserted.FirmaAdresse values (@1,@2)";
+            command.CommandText = "INSERT INTO Firma(FirmaNavn, FirmaAdresse) output Inserted.FirmaID, Inserted.FirmaNavn, Inserted.FirmaAdresse values (@1,@2)";
             command.Parameters.AddWithValue("@1", name);
             command.Parameters.AddWithValue("@2", address);
 

@@ -23,6 +23,9 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         [ObservableProperty]
         private ObservableCollection<Company> searchItems;
 
+        private INavigation navigation;
+       
+
         partial void OnSelectedCompanyChanged(Company? value)
         {
             if (value is not null)
@@ -53,6 +56,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         private CompanyRepository repo = new();
         public CompanyPageViewModel()
         {
+            CreateCommand = new RelayCommand(CreateCompany);
             //AdminUser.CurrentUser.CompaniesChanged += OnCompaniesChanged;
             //AdminUser.CurrentUser.GetCompanies();
 
@@ -67,6 +71,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
             UpdateCommand = new RelayCommand(Update);
             CreateCommand = new RelayCommand(CreateCompany);
         }
+
 
         private void OnCompaniesChanged(object? sender, ObservableCollection<Company>list)
         {
@@ -92,12 +97,17 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
             SelectedCompany.Name = Name;
             SelectedCompany.Address = Address;
 
-           // AdminUser.CurrentUser.UpdateCompany(SelectedCompanies!);
+           //AdminUser.CurrentUser.UpdateCompany(SelectedCompanies!);
         }
         private void CreateCompany()
         {
-            //SelectedCompany = AdminUser.CurrentUser.CreateCompany(ID, Name, Address);
+           //var newCompany = new Company{Name = this.Name, Address = this.Address};
+           
+           repo.CreateCompany(Name, Address);
         }
-
+        internal void CreateCompany(Company newCompany)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

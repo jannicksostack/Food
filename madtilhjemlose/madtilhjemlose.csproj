@@ -62,6 +62,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\jjmstore.png" />
+	  <None Remove="Resources\Images\logo.png" />
 	</ItemGroup>
 
 	<ItemGroup>
