@@ -3,15 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="madtilhjemlose.MVVM.View.User.Default.MainPage" >
 
-    <StackLayout 
-      Padding="10" Margin="10" WidthRequest="400" Spacing="10">
-        <Image Source="jjmstore.png" HeightRequest="185" Aspect="AspectFit" SemanticProperties.Description="Logo"/>
-
-        <Label Text="Customer" HorizontalTextAlignment="Center" FontSize="22" BackgroundColor="LightSeaGreen" TextColor="White"/>
+    <VerticalStackLayout Padding="10" Margin="10" WidthRequest="400" Spacing="10">
+        
+        <Image Source="jjmstore.png" 
+               HeightRequest="185" 
+               Aspect="AspectFit" 
+               SemanticProperties.Description="Logo"/>
        
+        <Label Text="Customer" 
+               HorizontalTextAlignment="Center" 
+               FontSize="22" 
+               BackgroundColor="LightSeaGreen" 
+               TextColor="White"/>
         <Button Text="Logout" Command="{Binding LogoutCommand}" WidthRequest="250" BackgroundColor="LightSeaGreen" TextColor="White" />
         <Button Text="View Contract" Command="{Binding ViewContractCommand}" WidthRequest="250" BackgroundColor="LightSeaGreen" TextColor="White" />
         <Button Text="View Last Order" Command="{Binding ViewLastOrderCommand}" WidthRequest="250" BackgroundColor="LightSeaGreen" TextColor="White" />
         <Button Text="New Order" Command="{Binding NewOrderCommand}" WidthRequest="250" BackgroundColor="LightSeaGreen" TextColor="White" />
-    </StackLayout>
+    </VerticalStackLayout>
 </ContentPage>

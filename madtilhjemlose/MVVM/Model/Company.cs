@@ -25,10 +25,7 @@ namespace madtilhjemlose.MVVM.Model
 
         }
 
-        //public int Id { get; set; }
-        //public string Name { get; set; }
-
-        //public string Address { get; set; }
+        
 
         public Company(int id, string name, string address)
         {
@@ -37,12 +34,6 @@ namespace madtilhjemlose.MVVM.Model
             Address = address;
         }
 
-        //public Company(SqlDataReader reader)
-        //{
-        //    Id = (int) ["FirmaID"];
-        //    Name = (string) ["FirmaNavn"];
-        //    Address = (string) ["FirmaAdresse"];
-        //}
-
+       
     }
 }

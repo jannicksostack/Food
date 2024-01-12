@@ -3,72 +3,91 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="madtilhjemlose.MVVM.View.User.Admin.CompanyPage"
              >
-
-    <StackLayout Margin="10" Padding="80"  Spacing="10">
-
-        <Image Source="jjmstore.png" 
-               HeightRequest="185"
-               Aspect="AspectFit" 
+    <ScrollView Margin="10">
+        <StackLayout  Margin="10" Padding="10"  Spacing="10"> 
+        <!-- HEADER -->
+        <Image Source="logo.png"
+                WidthRequest="180"
+                Aspect="AspectFit" 
                SemanticProperties.Description="Logo"/>
         <Label Text="Companies" 
                FontSize="22"
-               HorizontalTextAlignment="Center" BackgroundColor="Coral" TextColor="White"/>
-        <Grid RowDefinitions="*, *"
-             ColumnDefinitions="*, *, *"
-             BackgroundColor="WhiteSmoke"
-             Padding="30" ColumnSpacing="2" 
-             RowSpacing="10" Grid.Row="5">
-
-            <Button Text="Add new" 
-                    FontSize="14" 
-                    Grid.Column="0" 
-                    Grid.Row="1"
-                    BackgroundColor="Coral"  
-                    WidthRequest="130" 
-                    
+               HorizontalTextAlignment="Center" 
+               BackgroundColor="Coral" TextColor="White"/>
+        
+        <!-- BODY -->
+        
+        <StackLayout>
+            <Grid RowDefinitions="*, *, *, *"
+                  ColumnDefinitions="*, *, *"
+                  BackgroundColor="WhiteSmoke"
+                  Padding="30" ColumnSpacing="2" 
+                  RowSpacing="10" Grid.Row="5">
+                <Label Text="Indset Navn og Adressen fra den nyt firma" Grid.Column="0" />
+                <Entry Placeholder="Indset Navn" Text="{Binding Name}" Grid.Row="1"/>
+                <Entry Placeholder="Indset Adressen" Text="{Binding Adress}" Grid.Row="2"/>
+                <Button Text="Add new firma" 
+            FontSize="14" 
+            Grid.Column="0" 
+            Grid.Row="4"
+            BackgroundColor="Coral"  
+            WidthRequest="130" 
+            Command ="{Binding CreateCommand}" 
+            
             />
-
-            <Button Text="Update" 
-                    FontSize="14" 
-                    Grid.Column="1" 
-                    BackgroundColor="Coral"  
-                    WidthRequest="130" 
-                    Grid.Row="1"
+                <Button Text="Update" 
+            FontSize="14" 
+            Grid.Column="1" 
+            BackgroundColor="Coral"  
+            WidthRequest="130" 
+            Grid.Row="1"/>
                     
-             />
+                    
 
+                <SearchBar x:Name="searchBar" Placeholder="Søg efter navn" 
+              SearchCommand="{Binding SearchCommand}"
+              SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+              Grid.Column="2" Grid.Row="1" 
+              WidthRequest="240" 
+              HorizontalTextAlignment="Start" 
+    />
 
-            <SearchBar x:Name="searchBar" Placeholder="Søg efter navn eller adresse" 
-                      SearchCommand="{Binding SearchCommand}"
-                      SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                      Grid.Column="2" Grid.Row="1" 
-                      WidthRequest="240" 
-                      HorizontalTextAlignment="Start" />
+            </Grid>
+            <Grid ColumnDefinitions="*, *, *"
+                  ColumnSpacing="2"
+                  Padding="10"
+                  RowSpacing="10">
+                <Label Text="Company ID" Grid.Column="0"
+                   HorizontalTextAlignment="Center"/>
+                <Label Text="Company Name" Grid.Column="1"
+                       HorizontalTextAlignment="Center"/>
+                <Label Text="Company Address" Grid.Column="2"
+                       HorizontalTextAlignment="Center"/>
 
-        </Grid>
-        <Grid RowDefinitions="*, *, *, *, *, *"
-              ColumnDefinitions="*, *, *, *" 
-              BackgroundColor="Gainsboro"
-              Padding="10" ColumnSpacing="10" 
-              RowSpacing="10" Grid.Row="5">
-            <Label Text="FirmaID" Grid.Column="0" Grid.Row="2" HorizontalTextAlignment="Center"/>
-            <Label Text="FirmaNavn" Grid.Column="1" Grid.Row="2" HorizontalTextAlignment="Center"/>
-            <Label Text="FirmaAdress" Grid.Column="2" Grid.Row="2" HorizontalTextAlignment="Center"/>
+            </Grid>
+            
             <ListView x:Name="searchResults"
                       ItemsSource="{Binding SearchItems}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <VerticalStackLayout>
-                                <Label Text="{Binding Name}"/>
-                                <Label Text="{Binding Address}"/>
-                            </VerticalStackLayout>
-
+                            <StackLayout>
+                                <Grid 
+                                        ColumnDefinitions="*, *, *"
+                                        ColumnSpacing="2"
+                                        Padding="10"
+                                        RowSpacing="10"
+                                        >
+                                    <Label Text="{Binding Id}" Grid.Column="0" HorizontalTextAlignment="Center" />
+                                    <Label Text="{Binding Name}" Grid.Column="1"  HorizontalTextAlignment="Center"/>
+                                    <Label Text="{Binding Address}" Grid.Column="2"  HorizontalTextAlignment="Center"/>
+                                </Grid>
+                            </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
-        </Grid>
+        </StackLayout>
     </StackLayout>
+    </ScrollView>
 </ContentPage>
