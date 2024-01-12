@@ -15,6 +15,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         public ICommand OpenProductsCommand { get; set; }
         public ICommand OpenStatisticsCommand { get; set; }
         public ICommand OpenCompanyCommand { get; set; }
+        public ICommand OpenActiveProductsCommand { get; set; }
 
 
         public MainPageViewModel(AdminUser user)
@@ -26,6 +27,12 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
             OpenOrdersCommand = new RelayCommand(OpenOrders);
             OpenProductsCommand = new RelayCommand(OpenProducts);
             OpenStatisticsCommand = new RelayCommand(OpenStatistics);
+            OpenActiveProductsCommand = new RelayCommand(OpenActiveProducts);
+        }
+
+        private void OpenActiveProducts()
+        {
+            App.Current.MainPage.Navigation.PushAsync(new ActiveProductsPage());
         }
 
         private void OpenStatistics()

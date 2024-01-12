@@ -7,7 +7,7 @@ public partial class CompanyPage : ContentPage
 	public CompanyPage()
 	{
 		InitializeComponent();
-        BindingContext = new CompanyPageViewModel(Navigation);
+        BindingContext = new CompanyPageViewModel();
 
     }
 }

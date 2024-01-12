@@ -71,8 +71,8 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 
         public ProductsPageViewModel()
         {
+            Items = new(AdminUser.CurrentUser.Products);
             AdminUser.CurrentUser.ProductsChanged += OnProductsChanged;
-            AdminUser.CurrentUser.GetProducts();
 
             SearchCommand = new RelayCommand<string>(Search);
             UpdateCommand = new RelayCommand(Update, CanUpdate);
@@ -84,7 +84,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 
         private void OnProductsChanged(object? sender, ObservableCollection<Product> list)
         {
-            Items = list;
+            Items = new(list);
         }
 
         private void Clear()
@@ -119,7 +119,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
             PickOptions options = new PickOptions();
             options.FileTypes = FilePickerFileType.Images;
             FileResult? result = await FilePicker.Default.PickAsync(options);
-            ImageData = Product.GetImageData(result?.FullPath);
+            ImageData = result is null ? null : Product.GetImageData(result.FullPath);
         }
 
         private bool IsDataValid()
