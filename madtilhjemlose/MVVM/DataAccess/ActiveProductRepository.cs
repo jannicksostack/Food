@@ -52,16 +52,16 @@ public class ActiveProductRepository : BaseRepository
 
     public void Update(ActiveProduct activeProduct)
     {
-        /*
         try
         {
             connection.Open();
             using SqlCommand command = connection.CreateCommand();
-            command.CommandText = "update Produkt set ProduktNavn = @1, ProduktType = @2, ProduktBillede = @3 where ProduktID = @4";
-            command.Parameters.AddWithValue("@1", product.Name);
-            command.Parameters.AddWithValue("@2", product.Type);
-            command.Parameters.AddWithValue("@3", product.ImageData);
-            command.Parameters.AddWithValue("@4", product.Id);
+            command.CommandText = "update AktiveProdukt set ProduktID = @1, AktiveProduktUdløbsdato = @2, AktiveProduktMaxMængde = @3, AktiveProduktPris = @4 where AktiveProduktID = @5";
+            command.Parameters.AddWithValue("@1", activeProduct.Product.Id);
+            command.Parameters.AddWithValue("@2", activeProduct.Date);
+            command.Parameters.AddWithValue("@3", activeProduct.Quantity);
+            command.Parameters.AddWithValue("@4", activeProduct.Price);
+            command.Parameters.AddWithValue("@5", activeProduct.Id);
 
             command.ExecuteNonQuery();
         }
@@ -75,7 +75,6 @@ public class ActiveProductRepository : BaseRepository
         }
 
         GetAll();
-        */
     }
 
     public ObservableCollection<ActiveProduct> GetAll()
@@ -84,7 +83,7 @@ public class ActiveProductRepository : BaseRepository
         {
             connection.Open();
             using SqlCommand command = connection.CreateCommand();
-            command.CommandText = "select AktiveProduktID, ProduktID, AktiveProduktUdløbsdato, AktiveProduktMaxMængde, AktiveProduktPris from AktiveProdukt Where AktiveProduktUdløbsdato >= cast(GetDate() as date) order by AktiveProduktUdløbsdato asc";
+            command.CommandText = "select AktiveProduktID, ProduktID, AktiveProduktUdløbsdato, AktiveProduktMaxMængde, AktiveProduktPris from AktiveProdukt Where AktiveProduktUdløbsdato >= cast(GetDate() as date)";
 
             using SqlDataReader reader = command.ExecuteReader();
 
@@ -94,7 +93,7 @@ public class ActiveProductRepository : BaseRepository
                 activeProducts.Add(new(reader, productRepo.Products));
             }
 
-            ActiveProducts = new(activeProducts);
+            ActiveProducts = new(activeProducts.OrderBy(x => x.Product.Name).ThenBy(x => x.Date));
             RepositoryChanged?.Invoke(this, ActiveProducts);
             return ActiveProducts;
         }

@@ -7,7 +7,7 @@
              Title="Aktive Produkter"
              >
     <ContentPage.Resources>
-        <conv:ImageDataToImageSource x:Key="DataToImageSource" />
+        <conv:DateTimeToDateOnly x:Key="DateTimeToDateOnly" />
     </ContentPage.Resources>
     <Grid Margin="30" ColumnSpacing="30">
         <Grid.RowDefinitions>
@@ -74,6 +74,7 @@
                                             <Label Grid.Column="0" Text="{Binding Price}"/>
                                             <Label Grid.Column="1" Text=" DKK"/>
                                         </Grid>
+                                        <Label Text="{Binding Date, Converter={StaticResource DateTimeToDateOnly}}" />
                                     </VerticalStackLayout>
                                 </HorizontalStackLayout>
                             </ViewCell>
