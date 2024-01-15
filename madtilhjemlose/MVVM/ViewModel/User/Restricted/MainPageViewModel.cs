@@ -7,15 +7,13 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Restricted
 {
     internal class MainPageViewModel : ObservableValidator
     {
-        private INavigation navigation;
         public ICommand LogoutCommand { get; set; }
         public ICommand ViewContractCommand { get; set; }
         public ICommand ViewLastOrderCommand { get; set; }
 
 
-        public MainPageViewModel(INavigation navigation)
+        public MainPageViewModel()
         {
-            this.navigation = navigation;
             LogoutCommand = new RelayCommand(Logout);
             ViewContractCommand = new RelayCommand(ViewContract);
             ViewLastOrderCommand = new RelayCommand(ViewLastOrder);
@@ -23,17 +21,17 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Restricted
 
         private void ViewLastOrder()
         {
-            navigation.PushAsync(new LastOrderPage());
+            App.Navigation.PushAsync(new LastOrderPage());
         }
 
         private void ViewContract()
         {
-            navigation.PushAsync(new ContractPage());
+            App.Navigation.PushAsync(new ContractPage());
         }
 
         private void Logout()
         {
-            navigation.PopToRootAsync();
+            App.Navigation.PopToRootAsync();
         }
     }
 }

@@ -13,42 +13,29 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
     internal partial class ProductsPageViewModel : ObservableValidator
     {
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(UpdateCommand))]
+        [NotifyCanExecuteChangedFor(nameof(CreateCommand))]
         private byte[]? imageData;
+
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(UpdateCommand))]
+        [NotifyCanExecuteChangedFor(nameof(CreateCommand))]
         private string name = "";
+
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(UpdateCommand))]
+        [NotifyCanExecuteChangedFor(nameof(CreateCommand))]
         private string type = "";
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(UpdateCommand))]
         private Product? selectedProduct;
 
         partial void OnSelectedProductChanged(Product? value)
         {
-            if (value is not null)
-            {
-                Name = value.Name;
-                Type = value.Type;
-                ImageData = value.ImageData;
-            }
-            UpdateCommand.NotifyCanExecuteChanged();
-        }
-
-        partial void OnNameChanged(string value)
-        {
-            CreateCommand.NotifyCanExecuteChanged();
-            UpdateCommand.NotifyCanExecuteChanged();
-        }
-
-        partial void OnImageDataChanged(byte[]? value)
-        {
-            CreateCommand.NotifyCanExecuteChanged();
-            UpdateCommand.NotifyCanExecuteChanged();
-        }
-
-        partial void OnTypeChanged(string value)
-        {
-            CreateCommand.NotifyCanExecuteChanged();
-            UpdateCommand.NotifyCanExecuteChanged();
+            Name = value?.Name ?? "";
+            Type = value?.Type ?? "";
+            ImageData = value?.ImageData;
         }
 
         partial void OnItemsChanged(ObservableCollection<Product> value)
@@ -62,37 +49,31 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         public RelayCommand ResetCommand { get; set; }
         public AsyncRelayCommand ChooseFileCommand { get; set; }
 
-
         [ObservableProperty]
         private ObservableCollection<Product> items;
 
         [ObservableProperty]
         private ObservableCollection<Product> searchItems;
 
+        private ProductRepository productRepository = new();
         public ProductsPageViewModel()
         {
-            Items = new(AdminUser.CurrentUser.Products);
-            AdminUser.CurrentUser.ProductsChanged += OnProductsChanged;
+            Items = productRepository.Items;
+            productRepository.RepositoryChanged += (_, list) =>
+            {
+                Items = new(list);
+            };
 
             SearchCommand = new RelayCommand<string>(Search);
             UpdateCommand = new RelayCommand(Update, CanUpdate);
             CreateCommand = new RelayCommand(CreateProduct, IsDataValid);
             ResetCommand = new RelayCommand(Clear);
             ChooseFileCommand = new AsyncRelayCommand(ChooseFile);
-
-        }
-
-        private void OnProductsChanged(object? sender, ObservableCollection<Product> list)
-        {
-            Items = new(list);
         }
 
         private void Clear()
         {
             SelectedProduct = null;
-            Name = "";
-            Type = "";
-            ImageData = null;
         }
 
         private void Update()
@@ -100,7 +81,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
             SelectedProduct.Name = Name;
             SelectedProduct.Type = Type;
             SelectedProduct.ImageData = ImageData;
-            AdminUser.CurrentUser.UpdateProduct(SelectedProduct!);
+            productRepository.Update(SelectedProduct);
         }
 
         private void Search(string query)
@@ -111,7 +92,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 
         private void CreateProduct()
         {
-            SelectedProduct = AdminUser.CurrentUser.CreateProduct(Type, Name, ImageData!);
+            SelectedProduct = productRepository.Create(Type, Name, ImageData!);
         }
 
         private async Task ChooseFile()

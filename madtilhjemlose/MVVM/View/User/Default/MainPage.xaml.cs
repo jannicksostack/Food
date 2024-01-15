@@ -5,9 +5,9 @@ namespace madtilhjemlose.MVVM.View.User.Default;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage(DefaultUser user)
+	public MainPage()
 	{
 		InitializeComponent();
-		BindingContext = new MainPageViewModel(Navigation);
+		BindingContext = new MainPageViewModel();
 	}
 }

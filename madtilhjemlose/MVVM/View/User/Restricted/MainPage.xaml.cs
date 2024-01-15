@@ -5,9 +5,9 @@ namespace madtilhjemlose.MVVM.View.User.Restricted;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage(RestrictedUser user)
+	public MainPage()
 	{
 		InitializeComponent();
-		BindingContext = new MainPageViewModel(Navigation);
+		BindingContext = new MainPageViewModel();
 	}
 }

@@ -30,21 +30,23 @@ namespace madtilhjemlose.MVVM.ViewModel
 
         private async Task Login()
         {
-            BaseUser? maybeUser = userRepo.TryGetUser(Username, Password);
-            if (maybeUser is not BaseUser user)
+            Model.User.User? maybeUser = userRepo.TryGetUser(Username, Password);
+            if (maybeUser is not Model.User.User user)
             {
                 Clear();
                 await OnFailedLogin();
                 return;
             }
 
-            Page p = user switch
+            Page p = user.UserType switch
             {
-                AdminUser adminUser => new View.User.Admin.MainPage(adminUser),
-                DefaultUser defaultUser => new View.User.Default.MainPage(defaultUser),
-                RestrictedUser restrictedUser => new View.User.Restricted.MainPage(restrictedUser),
+                UserType.Admin => new View.User.Admin.MainPage(),
+                UserType.Default => new View.User.Default.MainPage(),
+                UserType.Restricted => new View.User.Restricted.MainPage(),
                 _ => throw new InvalidDataException("Der findes kun 3 bruger typer")
             };
+
+            Model.User.User.Current = user;
 
             Clear();
             await navigation.PushAsync(p);
