@@ -7,9 +7,9 @@
         Margin="10" Padding="10"  Spacing="10">
 
         <Image Source="logo.png" 
-       WidthRequest="180"
-       Aspect="AspectFit" 
-       SemanticProperties.Description="Logo"/>
+            WidthRequest="180"
+            Aspect="AspectFit" 
+            SemanticProperties.Description="Logo"/>
         <Label Text="Last Order" 
        FontSize="22"  
        HorizontalTextAlignment="Center" BackgroundColor="LightSeaGreen" TextColor="White"/>
