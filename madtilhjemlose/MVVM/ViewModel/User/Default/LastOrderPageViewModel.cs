@@ -1,14 +1,29 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using madtilhjemlose.MVVM.DataAccess;
+using madtilhjemlose.MVVM.Model;
+using System.Collections.ObjectModel;
 
 namespace madtilhjemlose.MVVM.ViewModel.User.Default
 {
-    internal class LastOrderPageViewModel : ObservableValidator
+    public partial class LastOrderPageViewModel : ObservableValidator
     {
-        private INavigation navigation;
+        private OrderRepository orderRepository = new();
 
-        public LastOrderPageViewModel(INavigation navigation)
+        [ObservableProperty]
+        private Order order;
+
+        [ObservableProperty]
+        private ObservableCollection<OrderDetails> orderDetails;
+
+        public LastOrderPageViewModel(int userId)
         {
-            this.navigation = navigation;
+            Order = orderRepository.Orders
+                .OrderByDescending(x => x.Date)
+                .ThenByDescending(x => x.Id)
+                .First(x => x.UserId == userId);
+
+            OrderDetails = new(orderRepository.OrderDetails
+                .Where(x => x.OrderId == Order.Id));
         }
     }
 }

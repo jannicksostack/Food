@@ -46,7 +46,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Default
                 .ToList();
 
             var quantitySold = orderRepository.OrderDetails
-                .GroupBy(x => x.ActiveProductId)
+                .GroupBy(x => x.ActiveProduct.Id)
                 .Select(g => new
                 {
                     ActiveProductId = g.Key,

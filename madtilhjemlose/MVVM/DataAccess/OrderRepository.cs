@@ -14,6 +14,8 @@ public class OrderRepository : BaseRepository
 
     public EventHandler<ObservableCollection<OrderDetails>> OrderDetailsChanged;
     public ObservableCollection<OrderDetails> OrderDetails;
+
+    private ActiveProductRepository activeProductRepository = new();
 	public OrderRepository()
 	{
         GetOrders();
@@ -33,7 +35,7 @@ public class OrderRepository : BaseRepository
             List<OrderDetails> list = new();
             while (reader.Read())
             {
-                list.Add(new(reader));
+                list.Add(new(reader, activeProductRepository.Items));
             }
 
             OrderDetails = new(list);

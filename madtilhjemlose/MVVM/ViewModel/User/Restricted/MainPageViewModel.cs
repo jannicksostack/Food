@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using madtilhjemlose.MVVM.DataAccess;
+using madtilhjemlose.MVVM.Model.User;
 using madtilhjemlose.MVVM.View.User.Restricted;
 using System.Windows.Input;
 
@@ -11,7 +13,6 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Restricted
         public ICommand ViewContractCommand { get; set; }
         public ICommand ViewLastOrderCommand { get; set; }
 
-
         public MainPageViewModel()
         {
             LogoutCommand = new RelayCommand(Logout);
@@ -21,7 +22,9 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Restricted
 
         private void ViewLastOrder()
         {
-            App.Navigation.PushAsync(new LastOrderPage());
+            int companyId = Model.User.User.Current.CompanyId;
+            int userId = Model.User.User.Current.Id;
+            App.Navigation.PushAsync(new View.User.Default.LastOrderPage(userId));
         }
 
         private void ViewContract()

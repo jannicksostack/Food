@@ -28,7 +28,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Default
 
         private void ViewLastOrder()
         {
-            App.Navigation.PushAsync(new LastOrderPage());
+            App.Navigation.PushAsync(new LastOrderPage(Model.User.User.Current.Id));
         }
 
         private void ViewContract()

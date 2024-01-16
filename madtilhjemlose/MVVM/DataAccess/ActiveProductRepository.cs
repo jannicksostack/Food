@@ -13,6 +13,12 @@ public class ActiveProductRepository : BaseRepository
 
     private List<Product> Products { get; set; }
 
+    public ActiveProductRepository()
+    {
+        Products = new ProductRepository().Items.ToList();
+        GetItems();
+    }
+
     public ActiveProductRepository(List<Product> products)
     {
         Products = products;

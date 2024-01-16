@@ -4,9 +4,9 @@ namespace madtilhjemlose.MVVM.View.User.Default;
 
 public partial class LastOrderPage : ContentPage
 {
-	public LastOrderPage()
+	public LastOrderPage(int userId)
 	{
 		InitializeComponent();
-		BindingContext = new LastOrderPageViewModel(Navigation);
+		BindingContext = new LastOrderPageViewModel(userId);
 	}
 }
