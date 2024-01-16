@@ -10,17 +10,22 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Default
         private OrderRepository orderRepository = new();
 
         [ObservableProperty]
-        private Order order;
+        private Order? order;
 
         [ObservableProperty]
-        private ObservableCollection<OrderDetails> orderDetails;
+        private ObservableCollection<OrderDetails> orderDetails = new();
 
         public LastOrderPageViewModel(int userId)
         {
             Order = orderRepository.Orders
                 .OrderByDescending(x => x.Date)
                 .ThenByDescending(x => x.Id)
-                .First(x => x.UserId == userId);
+                .FirstOrDefault(x => x.UserId == userId);
+
+            if (Order is null)
+            {
+                return;
+            }
 
             OrderDetails = new(orderRepository.OrderDetails
                 .Where(x => x.OrderId == Order.Id));
