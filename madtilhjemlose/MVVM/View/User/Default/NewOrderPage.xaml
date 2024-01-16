@@ -11,17 +11,16 @@
         <conv:DateTimeToDateOnly x:Key="DateTimeToDateOnly"/>
     </ContentPage.Resources>
     <StackLayout 
-        Margin="10" Padding="80"  Spacing="10">
-        <Image Source="jjmstore.png" 
-           HeightRequest="185"
+        Margin="10" Padding="10"  Spacing="10">
+        <Image Source="logo.png" 
+           WidthRequest="180"
            Aspect="AspectFit" 
-           Margin="0, -100, 0,-50"
            SemanticProperties.Description="Logo"/>
         <Label Text="New Order" 
            FontSize="22"  
            HorizontalTextAlignment="Center" BackgroundColor="LightSeaGreen" TextColor="White"/>
 
-        <Grid VerticalOptions="FillAndExpand">
+        <Grid VerticalOptions="FillAndExpand" ColumnSpacing="10" RowSpacing="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
