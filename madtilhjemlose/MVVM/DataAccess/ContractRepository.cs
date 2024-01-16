@@ -55,6 +55,50 @@ public class ContractRepository : BaseRepository, IEnumerable<Contract>
             if (connection != null && connection.State == ConnectionState.Open) connection.Close();
         }
 	}
+	
+	public void CreateContractAndDefaultUser(string companyName, string companyAddress, 
+		string contractBeginDate, string contractEndDate, string brugerNavn, string brugerPWD) // takes values and insert it into db - Jesper
+    {
+		// makes both a contract and a user for shooping
+		try
+		{
+			// cmd string was made with help of ChatGPT
+            SqlCommand cmd = new("BEGIN TRANSACTION; " +
+                "INSERT INTO dbo.Firma(FirmaNavn, FirmaAdresse) VALUES (@CompanyName, @CompanyAddress);" +
+                "DECLARE @@LastIDFirma INT; SET @@LastIDFirma = SCOPE_IDENTITY();" + // gets the last identify value generated during the insert
+                "INSERT INTO dbo.Kontrakt (FirmaID, KontraktStartDato, KontraktSlutDato) VALUES (@LastIDFirma,'@StartDate', '@EndDate'); " +
+				"COMMIT;", connection);
+            SqlCommand command = cmd;
+            command.Parameters.Add(CreateParam("@CompanyName", companyName + "%", SqlDbType.NVarChar));
+            command.Parameters.Add(CreateParam("@CompanyAddress", companyAddress + "%", SqlDbType.NVarChar));
+            command.Parameters.Add(CreateParam("@StartDate", contractBeginDate + "%", SqlDbType.NVarChar));
+            command.Parameters.Add(CreateParam("@EndDate", contractEndDate + "%", SqlDbType.NVarChar));
+            connection.Open();
+			SqlDataReader reader = cmd.ExecuteReader();
+            if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+			// after Contract and Company is made, make a user that can by items. 
+			UserRepository user = new UserRepository();
+			// brugerTypeID = 2 is the standard buyer for a company
+			// each company contract need 1 member with brugerTypeID = 2
+			user.CreateUser(companyName,2,brugerNavn,brugerPWD);
+
+        }
+		catch (Exception ex)
+		{
+			ShowErrorMessage("Creating new Contract to a new Company has failed");
+			throw;
+		}
+		finally
+		{
+            if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+        }
+
+	}
+
+	public void UpdateContract()
+	{
+
+	}
 
     IEnumerator IEnumerable.GetEnumerator()
     {
