@@ -56,8 +56,8 @@ public class ContractRepository : BaseRepository, IEnumerable<Contract>
         }
 	}
 	
-	public void CreateContractAndDefaultUser(string companyName, string companyAddress, 
-		string contractBeginDate, string contractEndDate, string brugerNavn, string brugerPWD) // takes values and insert it into db - Jesper
+	public void CreateContract(string companyName, string companyAddress, 
+		string contractBeginDate, string contractEndDate) // takes values and insert it into db - Jesper
     {
 		// makes both a contract and a user for shooping
 		try
@@ -75,12 +75,7 @@ public class ContractRepository : BaseRepository, IEnumerable<Contract>
             command.Parameters.Add(CreateParam("@EndDate", contractEndDate + "%", SqlDbType.NVarChar));
             connection.Open();
 			SqlDataReader reader = cmd.ExecuteReader();
-            if (connection != null && connection.State == ConnectionState.Open) connection.Close();
-			// after Contract and Company is made, make a user that can by items. 
-			UserRepository user = new UserRepository();
-			// brugerTypeID = 2 is the standard buyer for a company
-			// each company contract need 1 member with brugerTypeID = 2
-			user.CreateUser(companyName,2,brugerNavn,brugerPWD);
+
 
         }
 		catch (Exception ex)

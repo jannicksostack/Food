@@ -44,7 +44,12 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
             if (companyName != null && companyAddress != null && contractBeginDate != null && contractEndDate != null && koeberNavn != null
                 && userName != null && password != null)
             {
-                repository.CreateContractAndDefaultUser(companyName, companyAddress, contractBeginDate, contractEndDate, userName, password);
+                repository.CreateContract(companyName, companyAddress, contractBeginDate, contractEndDate);
+                // after Contract and Company is made, make a user that can by items. 
+                UserRepository user = new UserRepository();
+                // brugerTypeID = 2 is the standard buyer for a company
+                // each company contract need 1 member with brugerTypeID = 2
+                user.CreateUser(companyName, 2, userName, password);
             }
             
         }
