@@ -1,10 +1,51 @@
 using madtilhjemlose.MVVM.Model.User;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace madtilhjemlose.MVVM.DataAccess;
 
 public class UserRepository : BaseRepository
 {
+
+	public UserRepository()
+	{
+	}
+
+	public void CreateUser(string companyName, int brugerTypeID, string brugerNavn, string brugerPassword) // jesper - creates a user in db
+	{
+		try
+		{
+            SqlCommand cmd = new("BEGIN TRANSACTION; " +
+                "select dbo.Firma.FirmaID from dbo.Firma where FirmaNavn like @CompanyName" +
+                "DECLARE @@LastIDFirma INT; SET @@LastIDFirma = SCOPE_IDENTITY();" + // gets the last identify value generated during the insert
+                "INSERT INTO dbo.Bruger(FirmaID, BrugerTypeID, BrugerNavn, BrugerPassword) " +
+				"VALUES (@LastIDFirma,@brugerTypeID, @brugerNavn, @brugerPWD); " +
+                "COMMIT;", connection);
+            SqlCommand command = cmd;
+            command.Parameters.Add(CreateParam("@CompanyName", companyName + "%", SqlDbType.NVarChar));
+			command.Parameters.Add(CreateParam("@brugerTypeID", brugerTypeID, SqlDbType.NVarChar));
+            command.Parameters.Add(CreateParam("@brugerNavn", brugerNavn, SqlDbType.NVarChar));
+            command.Parameters.Add(CreateParam("@brugerPWD", brugerPassword, SqlDbType.NVarChar));
+            connection.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+        }
+		catch (Exception ex)
+		{
+
+			throw;
+		}
+		finally { if (connection != null && connection.State == ConnectionState.Open) connection.Close(); }
+
+    }
+
+	public void UpdateUser() // jesper
+	{
+
+	}
+	public void DelteUser() // jesper
+	{
+
+	}
 
 	public User? TryGetUser(string userName, string password)
 	{

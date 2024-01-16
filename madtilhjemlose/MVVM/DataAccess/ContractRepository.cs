@@ -55,6 +55,45 @@ public class ContractRepository : BaseRepository, IEnumerable<Contract>
             if (connection != null && connection.State == ConnectionState.Open) connection.Close();
         }
 	}
+	
+	public void CreateContract(string companyName, string companyAddress, 
+		string contractBeginDate, string contractEndDate) // takes values and insert it into db - Jesper
+    {
+		// makes both a contract and a user for shooping
+		try
+		{
+			// cmd string was made with help of ChatGPT
+            SqlCommand cmd = new("BEGIN TRANSACTION; " +
+                "INSERT INTO dbo.Firma(FirmaNavn, FirmaAdresse) VALUES (@CompanyName, @CompanyAddress);" +
+                "DECLARE @@LastIDFirma INT; SET @@LastIDFirma = SCOPE_IDENTITY();" + // gets the last identify value generated during the insert
+                "INSERT INTO dbo.Kontrakt (FirmaID, KontraktStartDato, KontraktSlutDato) VALUES (@LastIDFirma,'@StartDate', '@EndDate'); " +
+				"COMMIT;", connection);
+            SqlCommand command = cmd;
+            command.Parameters.Add(CreateParam("@CompanyName", companyName + "%", SqlDbType.NVarChar));
+            command.Parameters.Add(CreateParam("@CompanyAddress", companyAddress + "%", SqlDbType.NVarChar));
+            command.Parameters.Add(CreateParam("@StartDate", contractBeginDate + "%", SqlDbType.NVarChar));
+            command.Parameters.Add(CreateParam("@EndDate", contractEndDate + "%", SqlDbType.NVarChar));
+            connection.Open();
+			SqlDataReader reader = cmd.ExecuteReader();
+
+
+        }
+		catch (Exception ex)
+		{
+			ShowErrorMessage("Creating new Contract to a new Company has failed");
+			throw;
+		}
+		finally
+		{
+            if (connection != null && connection.State == ConnectionState.Open) connection.Close();
+        }
+
+	}
+
+	public void UpdateContract()
+	{
+
+	}
 
     IEnumerator IEnumerable.GetEnumerator()
     {

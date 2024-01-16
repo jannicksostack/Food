@@ -62,7 +62,8 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 
                 InstalledFontCollection installedFontCollection = new InstalledFontCollection();
                 string chosenFont = "";
-                foreach (FontFamily fontFamily in installedFontCollection.Families) { if (fontFamily.Name == "Calibri") {chosenFont = fontFamily.Name; break; } }
+                foreach (FontFamily fontFamily in installedFontCollection.Families) 
+                { if (fontFamily.Name == "Calibri") {chosenFont = fontFamily.Name; break; } }
                 
                 // Create a font for the text
                 //XFont font = new XFont("Arial", 12, XFontStyleEx.Regular);

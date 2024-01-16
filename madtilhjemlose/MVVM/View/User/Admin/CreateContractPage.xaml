@@ -13,37 +13,45 @@
     HorizontalTextAlignment="Center" BackgroundColor="Coral" TextColor="White"/>
         <Grid Margin="20">
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="40"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
                 <!--5-->
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="60"/>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="60"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
                 <!--10-->
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="180"/>
                 <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="200"/> <!--cloum 5-->
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="3" Grid.Row="4" Text="Create new contract" Command="{Binding CreateContractCommand}"/>
-            <Picker Grid.Row="0" Grid.Column="0" x:Name="ContractPicker" Title="Vælg en kontrakt" ItemsSource="{Binding ContractList}" ItemDisplayBinding="{Binding CompanyName}" SelectedItem="{Binding SelectedContract, Mode=TwoWay}" />
-            <Label Grid.Column="1" Grid.Row="1" Text="{Binding SelectedContractID}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-            <Label Grid.Column="1" Grid.Row="2" Text="{Binding SelectedStartDate}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-            <Label Grid.Column="1" Grid.Row="3" Text="{Binding SelectedEndDate}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-            <Label Grid.Column="1" Grid.Row="4" Text="{Binding SelectedCompanyAddress}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-            <Label Grid.Column="0" Grid.Row="1" Text="Kontrakt ID" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+            <Button Grid.Column="5" Grid.Row="4" Text="Create new contract" Command="{Binding CreateContractCommand}"/>
+            <Entry Grid.Column="1" Grid.Row="1" Placeholder="Firma Navn" Text="{Binding CompanyName, Mode=TwoWay}"/>
+            <Entry Grid.Column="1" Grid.Row="2" Placeholder="Firma addresse" Text="{Binding CompanyAddress, Mode=TwoWay}"/>
+            <Entry Grid.Column="1" Grid.Row="3" Placeholder="Kontrakt start dato" Text="{Binding ContractBeginDate, Mode=TwoWay}"/>
+            <Entry Grid.Column="1" Grid.Row="4" Placeholder="Kontrakt slut dato" Text="{Binding ContractEndDate, Mode=TwoWay}"/>
+            <Label Grid.Column="0" Grid.Row="1" Text="Firma navn" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
             <Label Grid.Column="0" Grid.Row="2" Text="Firma Adresse" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-            <Label Grid.Column="0" Grid.Row="3" Text="Kontrakt Start dato (dd/mm/yyyy)" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-            <Label Grid.Column="0" Grid.Row="4" Text="Kontrakt slut dato (dd/mm/yyyy)" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="3" Text="Kontrakt Start dato (yyyy-mm-dd)" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="4" Text="Kontrakt slut dato (yyyy-mm-dd)" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+
+            <Label Grid.Column="3" Grid.Row="1" Text="Firma købsansvarlig navn"/>
+            <Entry Grid.Column="4" Grid.Row="1" Placeholder="Købsansvarlig navn" Text="{Binding KoeberNavn, Mode=TwoWay}"/>
+            <Label Grid.Column="3" Grid.Row="2" Text="Bruger navn"/>
+            <Entry Grid.Column="4" Grid.Row="2" Placeholder="Bruger navn" Text="{Binding UserName, Mode=TwoWay}"/>
+            <Label Grid.Column="3" Grid.Row="3" Text="Adgangskode"/>
+            <Entry Grid.Column="4" Grid.Row="3" Placeholder="PWD" Text="{Binding Password, Mode=TwoWay}"/>
         </Grid>
     </StackLayout>
 </ContentPage>
