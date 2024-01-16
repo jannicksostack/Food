@@ -2,34 +2,37 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="madtilhjemlose.MVVM.View.LoginPage">
-    <StackLayout WidthRequest="400" Margin="10"
+
+    <ScrollView Margin="10">
+
+        <StackLayout WidthRequest="400" Margin="10"
                  Padding="30" Spacing="5">
-        
-        <Image  Source="logo.png"
+
+            <Image  Source="logo.png"
                 WidthRequest="180"
                 Aspect="AspectFit"
                 SemanticProperties.Description="Skraldetur I containeren indkøb" />
-        <Label
+            <Label
                 Text="Welkome to the Online-Shop"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
 
-        <Label
+            <Label
                 Text="Log venligst ind for at komme ind"
                 HorizontalOptions="Center"
                 FontSize="20"
                 SemanticProperties.HeadingLevel="Level2"
                 SemanticProperties.Description="Du skal være logget ind for at få adgang til din side " />
-        <Label 
+            <Label 
             Text=" "
             Style="{StaticResource SubHeadline}"
             SemanticProperties.HeadingLevel="Level2"
             />
 
-        <Entry Placeholder="Username" Text="{Binding Username, Mode=TwoWay}"/>
-        <Entry Placeholder="Password" Text="{Binding Password, Mode=TwoWay}" IsPassword="True" />
-        <Button Text="Login" Command="{Binding LoginCommand}" />
-    
-    </StackLayout>
+            <Entry Placeholder="Username" Text="{Binding Username, Mode=TwoWay}"/>
+            <Entry Placeholder="Password" Text="{Binding Password, Mode=TwoWay}" IsPassword="True" />
+            <Button Text="Login" Command="{Binding LoginCommand}" />
 
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

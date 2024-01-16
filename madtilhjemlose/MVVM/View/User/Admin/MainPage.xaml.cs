@@ -5,9 +5,9 @@ namespace madtilhjemlose.MVVM.View.User.Admin;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage(AdminUser admin)
+	public MainPage()
 	{
 		InitializeComponent();
-		BindingContext = new MainPageViewModel(admin);
+		BindingContext = new MainPageViewModel();
 	}
 }

@@ -1,0 +1,55 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using madtilhjemlose.MVVM.DataAccess;
+using madtilhjemlose.MVVM.Model;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+
+namespace madtilhjemlose.MVVM.ViewModel.User.Default
+{
+    internal partial class NewOrderPageViewModel : ObservableValidator
+    {
+        private ProductRepository productRepository = new();
+        private ActiveProductRepository activeProductRepository;
+
+        [ObservableProperty]
+        private ObservableCollection<StoreItem> items;
+
+        [ObservableProperty]
+        private ObservableCollection<StoreItem> searchItems;
+
+        partial void OnItemsChanged(ObservableCollection<StoreItem> value)
+        {
+            SearchItems = value;
+        }
+
+        public ICommand AddToCartCommand { get; set; }
+
+        public NewOrderPageViewModel()
+        {
+            activeProductRepository = new(productRepository.Items.ToList());
+            Items = new(activeProductRepository.Items.Select(x => new StoreItem(x)));
+
+            AddToCartCommand = new RelayCommand<StoreItem>(AddToCart, CanAddToCart);
+        }
+
+        private void AddToCart(StoreItem? item)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public partial class StoreItem : ObservableObject
+    {
+        [ObservableProperty]
+        private ActiveProduct activeProduct;
+
+        [ObservableProperty]
+        private string count= "";
+
+        public StoreItem(ActiveProduct activeProduct)
+        {
+            ActiveProduct = activeProduct;
+        }
+    }
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:madtilhjemlose.MVVM.Model"
+             x:Class="madtilhjemlose.MVVM.View.User.Default.ShoppingCartPage"
+             Title="Cart">
+    <Grid RowSpacing="10" Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ScrollView Grid.Row="0">
+            <ListView ItemsSource="{Binding Cart.Items}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid ColumnSpacing="5" Margin="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="{Binding ActiveProduct.Product.ImageSource, Source={RelativeSource AncestorType={x:Type model:ShoppingCartItem}}}" WidthRequest="100" HeightRequest="100"/>
+                                <Label VerticalOptions="Center" Grid.Column="1" Text="{Binding Quantity, Source={RelativeSource AncestorType={x:Type model:ShoppingCartItem}}}" />
+                                <Label VerticalOptions="Center" Grid.Column="2" Text="x"/>
+                                <Label VerticalOptions="Center" Grid.Column="3" Text="{Binding ActiveProduct.Product.Name, Source={RelativeSource AncestorType={x:Type model:ShoppingCartItem}}}" />
+                                <Label VerticalOptions="Center" Grid.Column="5" Text="{Binding Total, StringFormat='{0} DKK', Source={RelativeSource AncestorType={x:Type model:ShoppingCartItem}}}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="{Binding Cart.Total, StringFormat='Total: {0} DKK'}"/>
+            <Button Grid.Column="2" Text="Place Order" Command="{Binding PlaceOrderCommand}" />
+        </Grid>
+    </Grid>
+</ContentPage>

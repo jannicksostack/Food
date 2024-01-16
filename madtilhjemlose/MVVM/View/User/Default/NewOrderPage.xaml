@@ -1,15 +1,66 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="madtilhjemlose.MVVM.View.User.Default.NewOrderPage" >
+             x:Class="madtilhjemlose.MVVM.View.User.Default.NewOrderPage"
+             xmlns:conv="clr-namespace:madtilhjemlose.MVVM.ValueConverter"
+             xmlns:viewmodel="clr-namespace:madtilhjemlose.MVVM.ViewModel.User.Default"
+             x:Name="Page"
+             >
+    <ContentPage.Resources>
+        <conv:ImageDataToImageSource x:Key="ImageDataToImageSource" />
+        <conv:DateTimeToDateOnly x:Key="DateTimeToDateOnly"/>
+    </ContentPage.Resources>
     <StackLayout 
-        Margin="10" Padding="80"  Spacing="10">
-        <Image Source="jjmstore.png" 
-       HeightRequest="185"
-       Aspect="AspectFit" 
-       SemanticProperties.Description="Logo"/>
+        Margin="10" Padding="10"  Spacing="10">
+        <Image Source="logo.png" 
+           WidthRequest="180"
+           Aspect="AspectFit" 
+           SemanticProperties.Description="Logo"/>
         <Label Text="New Order" 
-       FontSize="22"  
-       HorizontalTextAlignment="Center" BackgroundColor="LightSeaGreen" TextColor="White"/>
+           FontSize="22"  
+           HorizontalTextAlignment="Center" BackgroundColor="LightSeaGreen" TextColor="White"/>
+
+        <Grid VerticalOptions="FillAndExpand" ColumnSpacing="10" RowSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <SearchBar x:Name="searchBar" SearchCommand="{Binding SearchCommand}" SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}" Grid.Column="0" Grid.Row="0" />
+            <Button Command="{Binding ShowCartCommand}" Text="Cart" Grid.Column="1" Grid.Row="0" />
+            <ScrollView Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                <ListView ItemsSource="{Binding SearchItems}" x:Name="listView">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Margin="10" x:Name="grid">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Source="{Binding Path=ActiveProduct.Product.ImageSource, Source={RelativeSource AncestorType={x:Type viewmodel:StoreItem}}}" HeightRequest="100" WidthRequest="100"/>
+                                    <VerticalStackLayout Grid.Column="1" Padding="10">
+                                        <Label Text="{Binding Path=ActiveProduct.Product.Name, Source={RelativeSource AncestorType={x:Type viewmodel:StoreItem}}}"/>
+                                        <Label Text="{Binding Quantity, Source={RelativeSource AncestorType={x:Type viewmodel:StoreItem}}}"/>
+                                        <Label Text="{Binding ActiveProduct.Price, Source={RelativeSource AncestorType={x:Type viewmodel:StoreItem}}}"/>
+                                        <Label Text="{Binding ActiveProduct.Date, Source={RelativeSource AncestorType={x:Type viewmodel:StoreItem}}, Converter={StaticResource DateTimeToDateOnly}}"/>
+                                    </VerticalStackLayout>
+                                    <HorizontalStackLayout VerticalOptions="Center" Grid.Column="2" Margin="20" Spacing="10">
+                                        <Entry WidthRequest="50" Text="{Binding Path=Count, Source={RelativeSource AncestorType={x:Type viewmodel:StoreItem}}}"/>
+                                        <Button Text="Add" Command="{Binding AddToCartCommand, Source={RelativeSource AncestorType={x:Type viewmodel:StoreItem}}}"/>
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+
+        </Grid>
     </StackLayout>
 </ContentPage>

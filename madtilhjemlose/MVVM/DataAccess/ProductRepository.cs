@@ -7,13 +7,14 @@ namespace madtilhjemlose.MVVM.DataAccess;
 
 public class ProductRepository : BaseRepository
 {
-    public ObservableCollection<Product> Products { get; set; } = new();
+    public ObservableCollection<Product> Items { get; set; } = new();
     public ProductRepository() {
+        GetItems();
     }
 
     public event EventHandler<ObservableCollection<Product>> RepositoryChanged;
 
-    public Product? CreateProduct(string type, string name, byte[]? imageData)
+    public Product? Create(string type, string name, byte[]? imageData)
     {
         Product? product = null;
         try
@@ -40,11 +41,11 @@ public class ProductRepository : BaseRepository
             connection.Close();
         }
 
-        GetProducts();
+        GetItems();
         return product;
     }
 
-    public void UpdateProduct(Product product)
+    public void Update(Product product)
     {
         try
         {
@@ -67,10 +68,10 @@ public class ProductRepository : BaseRepository
             connection.Close();
         }
 
-        GetProducts();
+        GetItems();
     }
 
-    public ObservableCollection<Product> GetProducts()
+    public void GetItems()
     {
         try
         {
@@ -86,9 +87,8 @@ public class ProductRepository : BaseRepository
                 products.Add(new Product(reader));
             }
 
-            Products = new(products);
-            RepositoryChanged?.Invoke(this, Products);
-            return Products;
+            Items = new(products);
+            RepositoryChanged?.Invoke(this, Items);
         }
         catch(Exception e)
         {
@@ -98,7 +98,6 @@ public class ProductRepository : BaseRepository
         {
             connection.Close();
         }
-        return new();
     }
 
     public void DeleteProduct(int id)

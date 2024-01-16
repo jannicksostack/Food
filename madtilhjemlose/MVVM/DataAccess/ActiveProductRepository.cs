@@ -7,15 +7,22 @@ namespace madtilhjemlose.MVVM.DataAccess;
 
 public class ActiveProductRepository : BaseRepository
 {
-    public ObservableCollection<ActiveProduct> ActiveProducts { get; set; } = new();
+    public ObservableCollection<ActiveProduct> Items { get; set; } = new();
 
     public event EventHandler<ObservableCollection<ActiveProduct>> RepositoryChanged;
 
-    private ProductRepository productRepo;
+    private List<Product> Products { get; set; }
 
-    public ActiveProductRepository(ProductRepository repo)
+    public ActiveProductRepository()
     {
-        productRepo = repo;
+        Products = new ProductRepository().Items.ToList();
+        GetItems();
+    }
+
+    public ActiveProductRepository(List<Product> products)
+    {
+        Products = products;
+        GetItems();
     }
 
     public ActiveProduct? Create(Product product, DateTime date, int quantity, decimal price)
@@ -35,7 +42,7 @@ public class ActiveProductRepository : BaseRepository
             using SqlDataReader reader = command.ExecuteReader();
             reader.Read();
 
-            activeProduct = new(reader, productRepo.Products);
+            activeProduct = new(reader, Products);
         }
         catch (Exception e)
         {
@@ -46,7 +53,7 @@ public class ActiveProductRepository : BaseRepository
             connection.Close();
         }
 
-        GetAll();
+        GetItems();
         return activeProduct;
     }
 
@@ -74,10 +81,10 @@ public class ActiveProductRepository : BaseRepository
             connection.Close();
         }
 
-        GetAll();
+        GetItems();
     }
 
-    public ObservableCollection<ActiveProduct> GetAll()
+    public void GetItems()
     {
         try
         {
@@ -90,12 +97,11 @@ public class ActiveProductRepository : BaseRepository
             List<ActiveProduct> activeProducts = new();
             while (reader.Read())
             {
-                activeProducts.Add(new(reader, productRepo.Products));
+                activeProducts.Add(new(reader, Products));
             }
 
-            ActiveProducts = new(activeProducts.OrderBy(x => x.Product.Name).ThenBy(x => x.Date));
-            RepositoryChanged?.Invoke(this, ActiveProducts);
-            return ActiveProducts;
+            Items = new(activeProducts.OrderBy(x => x.Product.Name).ThenBy(x => x.Date));
+            RepositoryChanged?.Invoke(this, Items);
         }
         catch(Exception e)
         {
@@ -105,7 +111,6 @@ public class ActiveProductRepository : BaseRepository
         {
             connection.Close();
         }
-        return new();
     }
 
     public void Delete(int id)

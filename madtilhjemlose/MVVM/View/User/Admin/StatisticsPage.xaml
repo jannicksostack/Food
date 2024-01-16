@@ -3,17 +3,86 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="madtilhjemlose.MVVM.View.User.Admin.StatisticsPage" >
 
-    <StackLayout Margin="10" Padding="80"  Spacing="10">
+    <ScrollView Margin="10">
+        <StackLayout  Margin="10" Padding="10"  Spacing="10">
 
-        <Image Source="jjmstore.png" 
-       HeightRequest="185" 
-       Aspect="AspectFit" 
-       SemanticProperties.Description="Logo"/>
-        <Label Text="Statistic" 
-       FontSize="22"  
-       HorizontalTextAlignment="Center" BackgroundColor="Coral" TextColor="White"/>
+            <!-- Header -->
+            <Image Source="logo.png"
+                   WidthRequest="180"
+                   Aspect="AspectFit" 
+                   SemanticProperties.Description="Logo"/>
+            <Label Text="Statistics" 
+                   FontSize="22"
+                   HorizontalTextAlignment="Center" 
+                   BackgroundColor="Coral" 
+                   TextColor="White"/>
 
-    </StackLayout>
+            <!-- body -->
+            
+            <StackLayout>
+                <Grid RowDefinitions="Auto, Auto, Auto, Auto"
+                   ColumnDefinitions="Auto, Auto, Auto, Auto"
+                   BackgroundColor="WhiteSmoke"
+                   Padding="30" ColumnSpacing="20"
+                   RowSpacing="10" Grid.Row="5">
 
+                    <SearchBar x:Name="searchBar" Placeholder="Søg efter navn" 
+                               SearchCommand="{Binding SearchCommand}"
+                               SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                               Grid.Column="2" Grid.Row="1" 
+                               WidthRequest="340" 
+                               HorizontalTextAlignment="Start" />
+                </Grid>
 
+                <Grid ColumnDefinitions="*, *, *, *, *, *, *"
+                      ColumnSpacing="2"
+                        Padding="10"
+                        RowSpacing="10" 
+                        BackgroundColor="SlateGrey">
+
+                    <Label Text="Product ID" Grid.Column="0"
+                        HorizontalTextAlignment="Center"/>
+                    <Label Text="Product Name" Grid.Column="1"
+                             HorizontalTextAlignment="Center"/>
+                    <Label Text="Product Type" Grid.Column="2"
+                        HorizontalTextAlignment="Center"/>
+                    <Label Text="Customer ID" Grid.Column="3"
+                           HorizontalTextAlignment="Center"/>
+                    <Label Text="Customer Name" Grid.Column="4"
+                           HorizontalTextAlignment="Center"/>
+                    <Label Text="Units sold in the last month (%)" Grid.Column="5"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Units sold in the last year (%)" Grid.Column="6"
+                           HorizontalOptions="Center"/>
+                </Grid>
+
+                <ListView x:Name="searchResults"
+                          ItemsSource="{Binding SearchItems}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Grid ColumnDefinitions="*, *, *, *, *, *, *"
+                                          Padding="30" 
+                                          ColumnSpacing="20"
+                                          RowSpacing="10"
+                                          BackgroundColor="LightGrey" 
+                                        >
+                                        <Label Text="{Binding ProductId}" Grid.Column="0" HorizontalTextAlignment="Center"/>
+                                        <Label Text="{Binding ProductType}" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                                        <Label Text="{Binding ProductName}" Grid.Column="2" HorizontalTextAlignment="Center"/>
+                                        <Label Text="{Binding CustomerID}" Grid.Column="3" HorizontalTextAlignment="Center"/>
+                                        <Label Text="{Binding CustomerName}" Grid.Column="4" HorizontalTextAlignment="Center"/>
+                                        <Label Text="{Binding UnitsLastMonth}" Grid.Column="5" HorizontalTextAlignment="Center"/>
+                                        <Label Text="{Binding UnitsLastYear}" Grid.Column="6" HorizontalTextAlignment="Center"/>
+
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

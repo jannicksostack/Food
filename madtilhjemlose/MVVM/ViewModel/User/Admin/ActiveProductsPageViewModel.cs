@@ -47,11 +47,10 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         public RelayCommand ResetCommand { get; set; }
         public AsyncRelayCommand ChooseFileCommand { get; set; }
 
-
         [ObservableProperty]
         private ObservableCollection<ActiveProduct> items;
 
-        partial void OnItemsChanged(ObservableCollection<ActiveProduct>? oldValue, ObservableCollection<ActiveProduct> newValue)
+        partial void OnItemsChanged(ObservableCollection<ActiveProduct> newValue)
         {
             SearchItems = new(newValue);
         }
@@ -72,11 +71,16 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         [ObservableProperty]
         private ObservableCollection<ActiveProduct> searchItems;
 
+        private ProductRepository productRepository = new();
+        private ActiveProductRepository activeProductRepository;
+
         public ActiveProductsPageViewModel()
         {
-            Products = new(AdminUser.CurrentUser.GetProducts().OrderBy(x => x.Name));
-            Items = new(AdminUser.CurrentUser.ActiveProducts);
-            AdminUser.CurrentUser.ActiveProductsChanged += (_, list) =>
+            Products = productRepository.Items;
+            activeProductRepository = new(Products.ToList());
+
+            Items = new(activeProductRepository.Items);
+            activeProductRepository.RepositoryChanged += (_, list) =>
             {
                 Items = new(list);
             };
@@ -103,7 +107,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
             SelectedActiveProduct.Date = Date;
             SelectedActiveProduct.Quantity = Convert.ToInt32(Quantity);
             SelectedActiveProduct.Price = Convert.ToDecimal(Price.Replace('.', ','));
-            AdminUser.CurrentUser.UpdateActiveProduct(SelectedActiveProduct);
+            activeProductRepository.Update(SelectedActiveProduct);
         }
 
         private void Search(string? query)
@@ -114,7 +118,9 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 
         private void Create()
         {
-            SelectedActiveProduct = AdminUser.CurrentUser.CreateActiveProduct(SelectedProduct, Date, Convert.ToInt32(Quantity), Convert.ToDecimal(Price.Replace('.',',')));
+            int quantity = Convert.ToInt32(Quantity);
+            decimal price = Convert.ToDecimal(Price.Replace('.', ','));
+            SelectedActiveProduct = activeProductRepository.Create(SelectedProduct, Date, quantity, price);
         }
 
         private bool IsDataValid()

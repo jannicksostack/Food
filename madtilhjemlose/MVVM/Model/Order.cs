@@ -1,15 +1,27 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Data.SqlClient;
+using System.Data;
+
 namespace madtilhjemlose.MVVM.Model;
 
-public class Order : ContentPage
+public partial class Order : ObservableObject
 {
-	public Order()
+	[ObservableProperty]
+	private int id;
+
+	[ObservableProperty]
+	private int userId;
+
+	[ObservableProperty]
+	private DateOnly date;
+
+	[ObservableProperty]
+	private bool active;
+	public Order(SqlDataReader reader)
 	{
-		Content = new VerticalStackLayout
-		{
-			Children = {
-				new Label { HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center, Text = "Welcome to .NET MAUI!"
-				}
-			}
-		};
+		Id = (int) reader["OrdreID"];
+		UserId = (int) reader["BrugerID"];
+		Date = DateOnly.FromDateTime((DateTime) reader["OrdreDato"]);
+		Active = reader.IsDBNull("Aktiv") ? false : (bool) reader["Aktiv"];
 	}
 }

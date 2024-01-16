@@ -23,7 +23,7 @@ namespace madtilhjemlose.MVVM.Model
         [ObservableProperty]
         private decimal price;
 
-        public ActiveProduct(SqlDataReader reader, ObservableCollection<Product> products)
+        public ActiveProduct(SqlDataReader reader, List<Product> products)
         {
             Id = (int) reader["AktiveProduktID"];
             Date = (DateTime) reader["AktiveProduktUdløbsdato"];
