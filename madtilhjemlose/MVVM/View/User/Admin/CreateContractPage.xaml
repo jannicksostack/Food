@@ -2,7 +2,17 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="madtilhjemlose.MVVM.View.User.Admin.CreateContractPage" >
-    <VerticalStackLayout>
-        <Label Text="CreateContract" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-    </VerticalStackLayout>
+    <StackLayout  Margin="10" Padding="10"  Spacing="10">
+        <!-- HEADER -->
+        <Image Source="logo.png"
+        WidthRequest="180"
+        Aspect="AspectFit" 
+       SemanticProperties.Description="Logo"/>
+        <Label Text="Create a new Contract" 
+       FontSize="22"
+       HorizontalTextAlignment="Center" 
+       BackgroundColor="Coral" TextColor="White"/>
+
+        <!-- BODY -->
+    </StackLayout>
 </ContentPage>

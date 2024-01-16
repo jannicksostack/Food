@@ -4,8 +4,8 @@
              x:Class="madtilhjemlose.MVVM.View.User.Default.NewOrderPage" >
     <StackLayout 
         Margin="10" Padding="80"  Spacing="10">
-        <Image Source="jjmstore.png" 
-       HeightRequest="185"
+        <Image Source="logo.png" 
+               WidthRequest="180"
        Aspect="AspectFit" 
        SemanticProperties.Description="Logo"/>
         <Label Text="New Order" 

@@ -4,59 +4,101 @@
              x:Class="madtilhjemlose.MVVM.View.User.Admin.CompanyPage"
              >
     <ScrollView Margin="10">
-        <StackLayout  Margin="10" Padding="10"  Spacing="10"> 
-        <!-- HEADER -->
-        <Image Source="logo.png"
+        <StackLayout  Margin="10" Padding="10"  Spacing="10">
+            <!-- HEADER -->
+            <!-- //logo -->
+            <Grid ColumnDefinitions="*, *, *">
+                <Image Source="logo.png"
                 WidthRequest="180"
                 Aspect="AspectFit" 
-               SemanticProperties.Description="Logo"/>
-        <Label Text="Companies" 
+               SemanticProperties.Description="Logo"
+                   HorizontalOptions="Start"
+                   Grid.Column="0"/>
+                
+                <!-- back to home
+                <Button Text="Back to Home" Clicked="Button_Clicked"
+                        Grid.Row="1" BackgroundColor="Coral" 
+                        TextColor="white" HorizontalOptions="Center"
+                        WidthRequest="200">
+                    
+                </Button>
+                -->
+        
+                <!-- //logout button -->
+                <Button Text="Logout" Clicked="LogOffButtonClicked"
+                    Grid.Column="2" BackgroundColor="Coral" 
+                        TextColor="White" HorizontalOptions="Center"
+                        WidthRequest="200">
+                </Button>
+               
+            </Grid>
+            
+            <!-- HEADER/ title -->
+            <Label Text="Companies" 
                FontSize="22"
                HorizontalTextAlignment="Center" 
                BackgroundColor="Coral" TextColor="White"/>
-        
-        <!-- BODY -->
-        
-        <StackLayout>
+
+            <!-- BODY -->
+
             <Grid RowDefinitions="*, *, *, *"
                   ColumnDefinitions="*, *, *"
                   BackgroundColor="WhiteSmoke"
-                  Padding="30" ColumnSpacing="2" 
+                  Padding="30" ColumnSpacing="20" 
                   RowSpacing="10" Grid.Row="5">
-                <Label Text="Indset Navn og Adressen fra den nyt firma" Grid.Column="0" />
-                <Entry Placeholder="Indset Navn" Text="{Binding Name}" Grid.Row="1"/>
-                <Entry Placeholder="Indset Adressen" Text="{Binding Adress}" Grid.Row="2"/>
+                    <!-- Create a new Company -->
+                <Label Text="Indset Navn og Adressen fra den nyt firma" Grid.Column="0" Grid.Row="0"  HorizontalTextAlignment="Center"  />
+                <Entry Placeholder="Indset Navn" Text="{Binding Name}" Grid.Row="1"  />
+                <Entry Placeholder="Indset Adressen" Text="{Binding Adress}" Grid.Row="2"  />
+
                 <Button Text="Add new firma" 
             FontSize="14" 
             Grid.Column="0" 
             Grid.Row="4"
             BackgroundColor="Coral"  
-            WidthRequest="130" 
+            WidthRequest="130"
             Command ="{Binding CreateCommand}" 
             
-            />
+                />
+                <!-- Update a  Company -->
+
+                <Picker Grid.Column="1" x:Name="CompanyPicker" 
+                            Title="Select a Company" 
+                            ItemsSource="{Binding Items}"
+                            ItemDisplayBinding="{Binding Name}" 
+                            SelectedItem="{Binding SelectedCompany, Mode=TwoWay}"
+                           
+                            HorizontalOptions="Center"/>
+                <Label Grid.Column="1" Grid.Row="1" Text="{Binding SelectedCompanyID}" 
+                           VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                <Entry Placeholder="Skift navn" Text="{Binding Name}" Grid.Column="1" Grid.Row="1" />
+                <Entry Placeholder="Skift adresse" Text="{Binding Address}" Grid.Column="1" Grid.Row="2" />
+
+
                 <Button Text="Update" 
             FontSize="14" 
             Grid.Column="1" 
             BackgroundColor="Coral"  
             WidthRequest="130" 
-            Grid.Row="1"/>
-                    
-                    
+            Grid.Row="3"
+            Command="{Binding UpdateCommand}"  
+                />
+
+                <!-- Search a Company -->
 
                 <SearchBar x:Name="searchBar" Placeholder="Søg efter navn" 
               SearchCommand="{Binding SearchCommand}"
               SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
               Grid.Column="2" Grid.Row="1" 
-              WidthRequest="240" 
-              HorizontalTextAlignment="Start" 
+                           HorizontalTextAlignment="Start" 
     />
 
             </Grid>
             <Grid ColumnDefinitions="*, *, *"
                   ColumnSpacing="2"
                   Padding="10"
-                  RowSpacing="10">
+                  RowSpacing="10" 
+                  BackgroundColor="SlateGrey">
                 <Label Text="Company ID" Grid.Column="0"
                    HorizontalTextAlignment="Center"/>
                 <Label Text="Company Name" Grid.Column="1"
@@ -65,7 +107,9 @@
                        HorizontalTextAlignment="Center"/>
 
             </Grid>
-            
+
+            <!-- Search Results -->
+
             <ListView x:Name="searchResults"
                       ItemsSource="{Binding SearchItems}">
                 <ListView.ItemTemplate>
@@ -77,10 +121,10 @@
                                         ColumnSpacing="2"
                                         Padding="10"
                                         RowSpacing="10"
-                                        >
-                                    <Label Text="{Binding Id}" Grid.Column="0" HorizontalTextAlignment="Center" />
-                                    <Label Text="{Binding Name}" Grid.Column="1"  HorizontalTextAlignment="Center"/>
-                                    <Label Text="{Binding Address}" Grid.Column="2"  HorizontalTextAlignment="Center"/>
+                                        BackgroundColor="LightGrey"                                    >
+                                    <Label Text="{Binding Id}" Grid.Column="0" HorizontalTextAlignment="Center"  />
+                                    <Label Text="{Binding Name}" Grid.Column="1"  HorizontalTextAlignment="Center" />
+                                    <Label Text="{Binding Address}" Grid.Column="2"  HorizontalTextAlignment="Center" />
                                 </Grid>
                             </StackLayout>
                         </ViewCell>
@@ -88,6 +132,5 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-    </StackLayout>
     </ScrollView>
 </ContentPage>

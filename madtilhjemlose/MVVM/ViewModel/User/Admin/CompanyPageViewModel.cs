@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using madtilhjemlose.MVVM.DataAccess;
 using madtilhjemlose.MVVM.Model;
 using madtilhjemlose.MVVM.Model.User;
+using madtilhjemlose.MVVM.View.User.Admin;
 using Microsoft.Data.SqlClient;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -10,6 +11,7 @@ using System.Windows.Input;
 
 namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 { 
+
     internal partial class CompanyPageViewModel : ObservableValidator
     {
         [ObservableProperty]
@@ -22,9 +24,12 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         private ObservableCollection<Company> items;
         [ObservableProperty]
         private ObservableCollection<Company> searchItems;
-
-        private INavigation navigation;
        
+        private INavigation navigation;
+        protected static CompanyRepository repository = [];
+        private Company _company;
+
+        
 
         partial void OnSelectedCompanyChanged(Company? value)
         {
@@ -57,9 +62,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         public CompanyPageViewModel()
         {
             CreateCommand = new RelayCommand(CreateCompany);
-            //AdminUser.CurrentUser.CompaniesChanged += OnCompaniesChanged;
-            //AdminUser.CurrentUser.GetCompanies();
-
+         
             repo.RepositoryChanged += (_, list) =>
             {
                 Items = new(list);
@@ -90,24 +93,41 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
             Name = "";
             Address = "";
         }
-
-
         private void Update()
         {
-            SelectedCompany.Name = Name;
-            SelectedCompany.Address = Address;
+            if (SelectedCompany !=null)
+            {
+                SelectedCompany.Name = Name;
+                SelectedCompany.Address = Address;
+                repo.UpdateCompany(SelectedCompany);
+            }
 
-           //AdminUser.CurrentUser.UpdateCompany(SelectedCompanies!);
         }
+        
         private void CreateCompany()
         {
-           //var newCompany = new Company{Name = this.Name, Address = this.Address};
-           
-           repo.CreateCompany(Name, Address);
+          repo.CreateCompany(Name, Address);
         }
         internal void CreateCompany(Company newCompany)
         {
             throw new NotImplementedException();
         }
+        //public void UpdateCompany()
+        //{
+        //}
+        public List<Company> GetAllCompanies() 
+        {
+            repo.SearchCompany(string.Empty);
+                var companies = new List<Company>();
+        foreach (var company in repo)
+                companies.Add(company);
+        return companies;
+        }
+        internal void UpdateCompany (Company companytoUpdate)
+        {
+            throw new NotImplementedException();
+        }
+        
+
     }
 }
