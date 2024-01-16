@@ -37,8 +37,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Default
 
         private void PopToMainPage()
         {
-            App.Navigation.RemovePage(App.Navigation.NavigationStack.SkipLast(1).Last());
-            App.Navigation.PopAsync();
+            App.PopToUserStartPage();
         }
     }
 }

@@ -13,5 +13,20 @@ namespace madtilhjemlose
             GlobalFontSettings.FontResolver = new FontResolver();
             MainPage = new NavigationPage(new LoginPage());
         }
+
+        public static void PopToUserStartPage()
+        {
+            var pagesToRemove = App.Navigation.NavigationStack
+                .Skip(2)
+                .SkipLast(1)
+                .ToList();
+
+            foreach (Page page in pagesToRemove)
+            {
+                App.Navigation.RemovePage(page);
+            }
+
+            App.Navigation.PopAsync();
+        }
     }
 }
