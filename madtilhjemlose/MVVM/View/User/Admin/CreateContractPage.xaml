@@ -51,10 +51,8 @@
             <Label Grid.Column="0" Grid.Row="3" Text="Kontrakt Start dato (yyyy-mm-dd)" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
             <Label Grid.Column="0" Grid.Row="4" Text="Kontrakt slut dato (yyyy-mm-dd)" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
 
-            <Label Grid.Column="3" Grid.Row="1" Text="Firma købsansvarlig navn"/>
-            <Entry Grid.Column="4" Grid.Row="1" Placeholder="Købsansvarlig navn" Text="{Binding KoeberNavn, Mode=TwoWay}"/>
-            <Label Grid.Column="3" Grid.Row="2" Text="Bruger navn"/>
-            <Entry Grid.Column="4" Grid.Row="2" Placeholder="Bruger navn" Text="{Binding UserName, Mode=TwoWay}"/>
+            <Label Grid.Column="3" Grid.Row="2" Text="Bruger navn (Firma købsansvarlig)"/>
+            <Entry Grid.Column="4" Grid.Row="2" Placeholder="Bruger navn (Firma købsansvarlig)" Text="{Binding UserName, Mode=TwoWay}"/>
             <Label Grid.Column="3" Grid.Row="3" Text="Adgangskode"/>
             <Entry Grid.Column="4" Grid.Row="3" Placeholder="PWD" Text="{Binding Password, Mode=TwoWay}"/>
         </Grid>

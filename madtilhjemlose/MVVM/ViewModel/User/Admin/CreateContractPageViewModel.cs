@@ -26,7 +26,6 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
         string companyAddress;
         string contractBeginDate;
         string contractEndDate;
-        string koeberNavn;
         string userName;
         string password;
 
@@ -41,7 +40,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 
         private void CreateContractWithUser()
         {
-            if (companyName != null && companyAddress != null && contractBeginDate != null && contractEndDate != null && koeberNavn != null
+            if (companyName != null && companyAddress != null && contractBeginDate != null && contractEndDate != null
                 && userName != null && password != null)
             {
                 repository.CreateContract(companyName, companyAddress, contractBeginDate, contractEndDate);
@@ -90,15 +89,6 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
             {
                 contractEndDate = value;
                 OnPropertyChanged(nameof(ContractEndDate));
-            }
-        }
-        public string KoeberNavn
-        {
-            get => koeberNavn;
-            set
-            {
-                koeberNavn = value;
-                OnPropertyChanged(nameof(KoeberNavn));
             }
         }
         public string UserName
