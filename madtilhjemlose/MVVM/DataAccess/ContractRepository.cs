@@ -21,7 +21,7 @@ public class ContractRepository : BaseRepository, IEnumerable<Contract>
 
     public void Search(string companyName) // Jesper
 	{
-		// All har adgang til dette, Admin kan vælge firma fra en Picker og normal bruger har hardcodet deres firmaNavn tilsendt
+		// All har adgang til dette, Admin kan vælge firma fra en Picker og normal bruger har deres firmaNavn tilsendt
 		try
 		{
 			//get CompanyInfo by Searching the company name
