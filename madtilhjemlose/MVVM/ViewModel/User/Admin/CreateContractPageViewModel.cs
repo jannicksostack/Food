@@ -62,7 +62,6 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
                 OnPropertyChanged(nameof(CompanyName));
             }
         }
-
         public string CompanyAddress
         {
             get => companyAddress;
@@ -72,7 +71,6 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
                 OnPropertyChanged(nameof(CompanyAddress));
             }
         }
-
         public string ContractBeginDate
         {
             get => contractBeginDate;

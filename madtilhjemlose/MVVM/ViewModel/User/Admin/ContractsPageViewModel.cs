@@ -60,6 +60,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
                 // Create a graphics object for the page
                 XGraphics gfx = XGraphics.FromPdfPage(page);
 
+                // check to see if Calibri is on the list of fontfamilys
                 InstalledFontCollection installedFontCollection = new InstalledFontCollection();
                 string chosenFont = "";
                 foreach (FontFamily fontFamily in installedFontCollection.Families) 
@@ -71,6 +72,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
 
                 DateTime currentDate = DateTime.Now;
 
+                // creates a list that will be written to pdf
                 List<string> lines = new List<string>();
                 lines.Add("PDF creation date : " + currentDate.ToString());
                 lines.Add("Company name : " + _contract.CompanyName);
@@ -79,6 +81,7 @@ namespace madtilhjemlose.MVVM.ViewModel.User.Admin
                 lines.Add("Contract end date : " + SelectedEndDate.ToString());
                 lines.Add("Company address : " + SelectedCompanyAddress.ToString());
 
+                // Writes to pdf
                 for(int i = 0; i < lines.Count; i++)
                 {
                     // Draw the text on the PDF
